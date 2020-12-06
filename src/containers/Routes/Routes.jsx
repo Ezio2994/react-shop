@@ -1,8 +1,11 @@
 import React from "react"
+import { Router } from "@reach/router";
+
+import DashBoard from "../DashBoard"
 
 const Routes = () => {
     return (
-        <h1>routes works</h1>
+        <DashBoard />
     )
 }
 

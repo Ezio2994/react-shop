@@ -4,7 +4,14 @@ import styles from "./NavBar.module.scss";
 const NavBar = () => {
   return (
     <>
-      <p>NavBar works</p>
+      <nav>
+        <ul>
+          <li>Home</li>
+          <li>Favourites</li>
+          <li>Cart</li>
+          <li>Login</li>
+        </ul>
+      </nav>
     </>
   );
 };
