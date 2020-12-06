@@ -2,10 +2,16 @@ import React from "react"
 import { Router } from "@reach/router";
 
 import DashBoard from "../DashBoard"
+import Favourites from "../Favourites"
 
-const Routes = () => {
+const Routes = (props) => {
+    const { user } = props
+
     return (
-        <DashBoard />
+        <Router>
+            <DashBoard path='/' user={user} />
+            <Favourites path='favourites' />
+        </Router>
     )
 }
 

@@ -4,10 +4,12 @@ import ProductCardList from "../../components/ProductCardList"
 import { firestore } from "../../firebase"
 
 
-const DashBoard = () => {
+const DashBoard = (props) => {
+  const { user } = props
+
   return (
     <>
-      <ProductCardList />
+      <ProductCardList user={user} />
     </>
   );
 };
