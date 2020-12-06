@@ -1,0 +1,12 @@
+.cartProduct {
+    height: 120px;
+    width: 50%;
+    border: 3px solid black;
+    display: flex;
+    justify-content: space-between;
+
+    img {
+        height: 100%;
+        width: 100px;
+    }
+}

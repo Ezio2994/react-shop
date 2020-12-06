@@ -5,11 +5,11 @@ import { firestore } from "../../firebase"
 
 
 const DashBoard = (props) => {
-  const { user } = props
+  const { user, dataBase, favComparison, addToFav, removeFromFav, addToCart } = props
 
   return (
     <>
-      <ProductCardList user={user} />
+      <ProductCardList user={user} favComparison={favComparison} addToFav={addToFav} removeFromFav={removeFromFav} addToCart={addToCart} dataBase={dataBase} />
     </>
   );
 };

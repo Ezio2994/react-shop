@@ -28,7 +28,9 @@ const NavBar = (props) => {
             <li>Home</li>
           </Link>
           {favourites}
-          <li>Cart</li>
+          <Link to="cart">
+            <li>Cart</li>
+          </Link>
           {signed}
         </ul>
       </nav>

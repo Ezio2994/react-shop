@@ -14,7 +14,7 @@ const ProductCard = (props) => {
     description,
   } = props.product;
 
-  const { user, addToFav, removeFromFav, filteredArray } = props
+  const { user, addToFav, removeFromFav, favComparison, addToCart } = props
   const [counter, setCounter] = useState(1)
 
 
@@ -26,7 +26,9 @@ const ProductCard = (props) => {
 
   const stockForCart = availability > 0 ? (
     <>
-    <button>Add to cart</button>
+    <button onClick={() => {
+      addToCart(props.product, counter)
+    }}>Add to cart</button>
     <button onClick={() => {
       if(counter > 1) {
         setCounter(counter -1)
@@ -42,11 +44,11 @@ const ProductCard = (props) => {
     <h3> Out of stock</h3>
   )
 
-  const heartIcon = filteredArray.includes(id) ? ["fas", "heart"] : ["far", "heart"];
+  const heartIcon = favComparison.includes(id) ? ["fas", "heart"] : ["far", "heart"];
 
   const ifUserAddToFav = user ? (
     <span onClick={() => {
-      if (!filteredArray.includes(id)) {
+      if (!favComparison.includes(id)) {
       addToFav(props.product)
       } else {
       removeFromFav(props.product)

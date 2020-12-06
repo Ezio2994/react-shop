@@ -1,10 +1,13 @@
 import React from "react";
 import styles from "./Favourites.module.scss";
+import ProductCardList from "../../components/ProductCardList"
 
-const Favourites = () => {
+const Favourites = (props) => {
+  const { userData,  user, favComparison, addToFav, removeFromFav } = props
+
   return (
     <>
-      <p>Favourites works</p>
+      <ProductCardList user={user} favComparison={favComparison} addToFav={addToFav} removeFromFav={removeFromFav} dataBase={userData} />
     </>
   );
 };
