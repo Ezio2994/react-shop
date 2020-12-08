@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./CartProduct.module.scss";
 
 const CartProduct = (props) => {
@@ -8,14 +8,32 @@ const CartProduct = (props) => {
     price,
     quantityToOrder} = props.product
 
-  return (
-    <article className={styles.cartProduct}>
-      <img src={img} alt=""/>
-      <p>{name}</p>
-      <p>£{price}</p>
-      <p>{quantityToOrder}</p>
+    const { removeFromCart } = props
 
-    </article>
+    const [total, setTotal] = useState(0)
+
+    const getTotal = () => {
+      setTotal(quantityToOrder * price)
+    }
+
+    useEffect(()=> {
+      getTotal()
+    }, [])
+
+  return (
+    <div className={styles.cartProduct}>
+      <article>
+        <img src={img} alt=""/>
+        <p>{name}</p>
+      </article>
+      <article>
+        <p>{quantityToOrder} *</p>
+        <p>£{price} =</p>
+        <p> £{total}</p>
+        <button onClick={() => removeFromCart(props.product)}>Remove</button>
+      </article>
+
+    </div>
   );
 };
 

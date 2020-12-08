@@ -3,11 +3,11 @@ import styles from "./Favourites.module.scss";
 import ProductCardList from "../../components/ProductCardList"
 
 const Favourites = (props) => {
-  const { userData,  user, favComparison, addToFav, removeFromFav } = props
+  const { userData,  user, favComparison, addToFav, removeFromFav, addToCart } = props
 
   return (
     <>
-      <ProductCardList user={user} favComparison={favComparison} addToFav={addToFav} removeFromFav={removeFromFav} dataBase={userData} />
+      <ProductCardList user={user} favComparison={favComparison} addToFav={addToFav} removeFromFav={removeFromFav} addToCart={addToCart} dataBase={userData} />
     </>
   );
 };

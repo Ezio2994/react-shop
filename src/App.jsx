@@ -12,7 +12,7 @@ function App() {
   const [userData, setUserData] = useState([])
   const [userCart, setUserCart] = useState([])
 
-
+  console.log(dataBase);
   const signIn = () => {
     firebase.auth().signInWithRedirect(provider);
   };
@@ -114,9 +114,40 @@ function App() {
       .collection("Cart")
       .doc(product.name)
       .set({...product, quantityToOrder: howMany})
-      // .then(fetchFromUserFav)
+      .then(fetchFromUserCart)
       .catch((err) => console.log(err));
   };
+
+  const removeFromCart = (product) => {
+    firestore
+      .collection("users")
+      .doc(user.uid)
+      .collection("Cart")
+      .doc(product.name)
+      .delete()
+      .then(fetchFromUserCart)
+      .catch((err) => console.error(err));
+  };
+
+
+  const bought = () => {
+    firestore
+      .collection("users")
+      .doc(user.uid)
+      .collection("Cart")
+      .get()
+      .then(res => {
+        res.forEach(element => {
+          element.ref.delete();
+        })
+      })
+      .then(fetchFromUserCart)
+      .then(setTimeout(fetchFromUserCart, 10))
+      .catch((err) => console.error(err));
+  };
+
+  
+
 
   useEffect(() => {
     fetchFromDataBase()
@@ -137,7 +168,7 @@ function App() {
   return (
     <div className="App">
       <NavBar signIn={signIn} signOut={signOut} user={user} />
-      <Routes user={user} favComparison={favComparison} addToFav={addToFav} removeFromFav={removeFromFav} addToCart={addToCart} dataBase={dataBase} userData={userData} userCart={userCart} />
+      <Routes user={user} favComparison={favComparison} addToFav={addToFav} removeFromFav={removeFromFav} addToCart={addToCart} dataBase={dataBase} userData={userData} userCart={userCart} removeFromCart={removeFromCart} bought={bought} />
       
     </div>
   );

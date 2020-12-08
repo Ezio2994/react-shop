@@ -5,16 +5,16 @@ import CartProduct from "../../components/CartProduct"
 
 
 const CartList = (props) => {
-  const { userCart } = props
+  const { userCart, removeFromCart } = props    
 
   const getCartProductJsx = (product) => (
     <div className={styles.cartContainer} key={product.id}>
-      <CartProduct product={product} />
+      <CartProduct product={product} removeFromCart={removeFromCart} />
     </div>
   );
 
 
-  return <section className={styles.cartList}>{userCart.map(getCartProductJsx)}</section>;
+  return <section>{userCart.map(getCartProductJsx)}</section>;
 
 };
 
