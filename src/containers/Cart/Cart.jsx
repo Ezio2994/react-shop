@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Cart.module.scss";
+import firebase, { firestore } from "../../firebase";
 
 import CartList from "../../components/CartList";
 
 const Cart = (props) => {
-  const { userCart, removeFromCart, bought, dataBase } = props;
+  const {
+    userCart,
+    removeFromCart,
+    bought,
+    dataBase,
+    fetchFromDataBase,
+  } = props;
+  const [dataBaseQuantity, setDataBaseQuantity] = useState(dataBase);
 
   const totalCart = userCart.map((cart) => {
     const singleTotal = cart.price * cart.quantityToOrder;
@@ -13,28 +21,36 @@ const Cart = (props) => {
 
   const totalCartprova = totalCart.reduce((a, b) => a + b, 0);
 
-  // const dataBaseQuantity = dataBase.map((cart) => {
-  //   const name = cart.name;
-  //   const quantity = cart.availability;
-  //   return { name: name, quantity: quantity };
-  // });
+  const startUpdate = () => {
+    for (let index = 0; index < dataBaseQuantity.length; index++) {
+      updateDataBaseQuantity(
+        dataBaseQuantity[index].name,
+        dataBaseQuantity[index]
+      );
+    }
+  };
 
-  // const orderingQuantity = userCart.map((cart) => {
-  //   const name = cart.name;
-  //   const quantity = cart.quantityToOrder;
-  //   return { name: name, quantity: quantity };
-  // });
+  const updateDataBaseQuantity = (name, product) => {
+    firestore
+      .collection("dataBase")
+      .doc(name)
+      .set({ ...product })
+      .then(fetchFromDataBase)
+      .catch((err) => console.log(err));
+  };
 
-  // console.log(dataBaseQuantity);
-  // console.log(orderingQuantity);
+  console.log(dataBaseQuantity);
 
-  // const prova = { ...dataBaseQuantity, ...orderingQuantity };
-  // console.log(prova);
-
-  // const findDifference = () => {};
-
-  // const prova =
-  // console.log(prova);
+  const updateQuantity = (value, id) => {
+    const newScores = dataBaseQuantity.map((scoreObj) => {
+      if (scoreObj.id === id) {
+        return { ...scoreObj, availability: scoreObj.availability - value };
+      } else {
+        return scoreObj;
+      }
+    });
+    setDataBaseQuantity(newScores);
+  };
 
   return (
     <section>
@@ -42,10 +58,11 @@ const Cart = (props) => {
       <CartList
         userCart={userCart}
         removeFromCart={removeFromCart}
-        dataBase={dataBase}
+        updateQuantity={updateQuantity}
       />
       <button
         onClick={() => {
+          startUpdate();
           bought();
         }}
       >

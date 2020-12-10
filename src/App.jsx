@@ -1,18 +1,16 @@
-import logo from './logo.svg';
-import './App.scss';
-import React, {useState, useEffect} from "react"
-import NavBar from "./components/NavBar"
-import Routes from "./containers/Routes"
+import logo from "./logo.svg";
+import "./App.scss";
+import React, { useState, useEffect } from "react";
+import NavBar from "./components/NavBar";
+import Routes from "./containers/Routes";
 import firebase, { provider, firestore } from "./firebase";
-
 
 function App() {
   const [user, setUser] = useState(null);
-  const [dataBase, setDataBase] = useState([])
-  const [userData, setUserData] = useState([])
-  const [userCart, setUserCart] = useState([])
+  const [dataBase, setDataBase] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const [userCart, setUserCart] = useState([]);
 
-  console.log(dataBase);
   const signIn = () => {
     firebase.auth().signInWithRedirect(provider);
   };
@@ -41,53 +39,52 @@ function App() {
 
   useEffect(() => {
     getUser();
-  })
+  });
 
-  const array1 = userData.map(data => data.id)
-  const array2 = dataBase.map(data => data.id)
+  const array1 = userData.map((data) => data.id);
+  const array2 = dataBase.map((data) => data.id);
 
-  const favComparison = array1.filter(value => array2.includes(value));
-
+  const favComparison = array1.filter((value) => array2.includes(value));
 
   const fetchFromDataBase = () => {
     firestore
-    .collection("dataBase")
-    .get()
-    .then((querySnapshot) => {
-      const currentData = querySnapshot.docs.map((doc) => doc.data());
-      setDataBase(currentData)
-    });
-  }
+      .collection("dataBase")
+      .get()
+      .then((querySnapshot) => {
+        const currentData = querySnapshot.docs.map((doc) => doc.data());
+        setDataBase(currentData);
+      });
+  };
 
   const fetchFromUserFav = () => {
     firestore
-      .collection('users')
+      .collection("users")
       .doc(user.uid)
       .collection("favourites")
       .get()
       .then((querySnapshot) => {
-        const currentData = querySnapshot.docs.map(doc => doc.data());
-        setUserData(currentData)
+        const currentData = querySnapshot.docs.map((doc) => doc.data());
+        setUserData(currentData);
       })
       .catch((err) => console.error(err));
   };
 
   const fetchFromUserCart = () => {
     firestore
-      .collection('users')
+      .collection("users")
       .doc(user.uid)
       .collection("Cart")
       .get()
       .then((querySnapshot) => {
-        const currentData = querySnapshot.docs.map(doc => doc.data());
-        setUserCart(currentData)
+        const currentData = querySnapshot.docs.map((doc) => doc.data());
+        setUserCart(currentData);
       })
       .catch((err) => console.error(err));
   };
 
   const addToFav = (product) => {
     firestore
-      .collection('users')
+      .collection("users")
       .doc(user.uid)
       .collection("favourites")
       .doc(product.name)
@@ -109,11 +106,11 @@ function App() {
 
   const addToCart = (product, howMany) => {
     firestore
-      .collection('users')
+      .collection("users")
       .doc(user.uid)
       .collection("Cart")
       .doc(product.name)
-      .set({...product, quantityToOrder: howMany})
+      .set({ ...product, quantityToOrder: howMany })
       .then(fetchFromUserCart)
       .catch((err) => console.log(err));
   };
@@ -129,47 +126,55 @@ function App() {
       .catch((err) => console.error(err));
   };
 
-
   const bought = () => {
     firestore
       .collection("users")
       .doc(user.uid)
       .collection("Cart")
       .get()
-      .then(res => {
-        res.forEach(element => {
+      .then((res) => {
+        res.forEach((element) => {
           element.ref.delete();
-        })
+        });
       })
       .then(fetchFromUserCart)
       .then(setTimeout(fetchFromUserCart, 10))
       .catch((err) => console.error(err));
   };
 
-  
-
-
   useEffect(() => {
-    fetchFromDataBase()
-  }, [])
+    fetchFromDataBase();
+  }, []);
 
   useEffect(() => {
     if (user) {
-      fetchFromUserFav()
+      fetchFromUserFav();
     }
-  }, [user])
+  }, [user]);
 
   useEffect(() => {
     if (user) {
-      fetchFromUserCart()
+      fetchFromUserCart();
     }
-  }, [user])
+  }, [user]);
 
   return (
     <div className="App">
       <NavBar signIn={signIn} signOut={signOut} user={user} />
-      <Routes user={user} favComparison={favComparison} addToFav={addToFav} removeFromFav={removeFromFav} addToCart={addToCart} dataBase={dataBase} userData={userData} userCart={userCart} removeFromCart={removeFromCart} bought={bought} />
-      
+      <Routes
+        user={user}
+        favComparison={favComparison}
+        addToFav={addToFav}
+        removeFromFav={removeFromFav}
+        addToCart={addToCart}
+        dataBase={dataBase}
+        setDataBase={setDataBase}
+        userData={userData}
+        userCart={userCart}
+        removeFromCart={removeFromCart}
+        bought={bought}
+        fetchFromDataBase={fetchFromDataBase}
+      />
     </div>
   );
 }

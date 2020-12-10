@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./CartProduct.module.scss";
 
 const CartProduct = (props) => {
-  const { name, img, price, quantityToOrder } = props.product;
+  const { id, name, img, price, quantityToOrder } = props.product;
 
-  const { removeFromCart, dataBase } = props;
+  const { removeFromCart, updateQuantity } = props;
 
   const [total, setTotal] = useState(0);
 
@@ -16,31 +16,15 @@ const CartProduct = (props) => {
     getTotal();
   }, []);
 
-  const [dataBaseQuantity, setDataBaseQuantity] = useState(0);
-
-  const dataBaseQuantitySetter = dataBase.map((cart) => {
-    const name = cart.name;
-    const quantity = cart.availability;
-    return { name: name, quantity: quantity };
-  });
-
-  const prova = () => {
-    for (let index = 0; index < dataBaseQuantitySetter.length; index++) {
-      if (dataBaseQuantitySetter[index].name === name) {
-        const newValue = dataBaseQuantitySetter[index].quantity;
-        setDataBaseQuantity(newValue);
-      }
-    }
-  };
-
-  console.log(dataBaseQuantity - quantityToOrder);
-
-  useEffect(() => {
-    prova();
-  }, []);
+  // useEffect(() => {
+  //   updateQuantity(quantityToOrder, id);
+  // }, []);
 
   return (
-    <div className={styles.cartProduct}>
+    <div
+      onLoad={() => updateQuantity(quantityToOrder, id)}
+      className={styles.cartProduct}
+    >
       <article>
         <img src={img} alt="" />
         <p>{name}</p>
