@@ -10,6 +10,7 @@ const ProductCardList = (props) => {
     addToFav,
     removeFromFav,
     addToCart,
+    addToGuestCart,
   } = props;
 
   const getProductJsx = (product) => (
@@ -21,6 +22,7 @@ const ProductCardList = (props) => {
         addToFav={addToFav}
         removeFromFav={removeFromFav}
         addToCart={addToCart}
+        addToGuestCart={addToGuestCart}
       />
     </div>
   );

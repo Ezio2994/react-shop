@@ -10,6 +10,26 @@ function App() {
   const [dataBase, setDataBase] = useState([]);
   const [userData, setUserData] = useState([]);
   const [userCart, setUserCart] = useState([]);
+  const [userIP, setUsetIp] = useState("");
+
+  const getJSON = () => {
+    fetch(
+      "https://ipgeolocation.abstractapi.com/v1/?api_key=073d2577c8c04b7b962e16890059eea1"
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        setUsetIp(res.ip_address);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  console.log(userIP);
+
+  useEffect(() => {
+    getJSON();
+  }, []);
 
   const signIn = () => {
     firebase.auth().signInWithRedirect(provider);
@@ -115,6 +135,17 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const addToGuestCart = (product, howMany) => {
+    firestore
+      .collection("guests")
+      .doc(userIP)
+      .collection("Cart")
+      .doc(product.name)
+      .set({ ...product, quantityToOrder: howMany })
+      // .then(fetchFromUserCart)
+      .catch((err) => console.log(err));
+  };
+
   const removeFromCart = (product) => {
     firestore
       .collection("users")
@@ -175,6 +206,7 @@ function App() {
         removeFromCart={removeFromCart}
         bought={bought}
         fetchFromDataBase={fetchFromDataBase}
+        addToGuestCart={addToGuestCart}
       />
     </div>
   );

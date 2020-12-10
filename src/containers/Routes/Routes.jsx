@@ -18,6 +18,7 @@ const Routes = (props) => {
     removeFromCart,
     bought,
     fetchFromDataBase,
+    addToGuestCart,
   } = props;
 
   return (
@@ -30,6 +31,7 @@ const Routes = (props) => {
         removeFromFav={removeFromFav}
         dataBase={dataBase}
         addToCart={addToCart}
+        addToGuestCart={addToGuestCart}
       />
       <Favourites
         path="favourites"
