@@ -16,13 +16,9 @@ const CartProduct = (props) => {
     getTotal();
   }, []);
 
-  // useEffect(() => {
-  //   updateQuantity(quantityToOrder, id);
-  // }, []);
-
   return (
     <div
-      onLoad={() => updateQuantity(quantityToOrder, id)}
+      onLoad={() => updateQuantity(quantityToOrder, id, "-")}
       className={styles.cartProduct}
     >
       <article>
@@ -33,7 +29,14 @@ const CartProduct = (props) => {
         <p>{quantityToOrder} *</p>
         <p>£{price} =</p>
         <p> £{total}</p>
-        <button onClick={() => removeFromCart(props.product)}>Remove</button>
+        <button
+          onClick={() => {
+            removeFromCart(props.product);
+            updateQuantity(quantityToOrder, id, "+");
+          }}
+        >
+          Remove
+        </button>
       </article>
     </div>
   );

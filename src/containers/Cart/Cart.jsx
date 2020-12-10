@@ -6,6 +6,7 @@ import CartList from "../../components/CartList";
 
 const Cart = (props) => {
   const {
+    user,
     userCart,
     removeFromCart,
     bought,
@@ -39,12 +40,12 @@ const Cart = (props) => {
       .catch((err) => console.log(err));
   };
 
-  console.log(dataBaseQuantity);
-
-  const updateQuantity = (value, id) => {
+  const updateQuantity = (value, id, operator) => {
     const newScores = dataBaseQuantity.map((scoreObj) => {
-      if (scoreObj.id === id) {
+      if (scoreObj.id === id && operator === "-") {
         return { ...scoreObj, availability: scoreObj.availability - value };
+      } else if (scoreObj.id === id && operator === "+") {
+        return { ...scoreObj, availability: scoreObj.availability + value };
       } else {
         return scoreObj;
       }

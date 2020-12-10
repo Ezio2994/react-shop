@@ -33,6 +33,7 @@ const Routes = (props) => {
       />
       <Favourites
         path="favourites"
+        dataBase={dataBase}
         user={user}
         favComparison={favComparison}
         addToFav={addToFav}
@@ -42,6 +43,7 @@ const Routes = (props) => {
       />
       <Cart
         path="cart"
+        user={user}
         userCart={userCart}
         removeFromCart={removeFromCart}
         bought={bought}

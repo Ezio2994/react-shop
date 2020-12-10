@@ -138,6 +138,7 @@ function App() {
         });
       })
       .then(fetchFromUserCart)
+      .then(fetchFromUserFav)
       .then(setTimeout(fetchFromUserCart, 10))
       .catch((err) => console.error(err));
   };
