@@ -23,6 +23,7 @@ const Routes = (props) => {
     fetchFromGuestCart,
     userIP,
     getJSON,
+    removeFromGuestCart,
   } = props;
 
   return (
@@ -59,6 +60,7 @@ const Routes = (props) => {
         fetchFromGuestCart={fetchFromGuestCart}
         userIP={userIP}
         getJSON={getJSON}
+        removeFromGuestCart={removeFromGuestCart}
       />
     </Router>
   );

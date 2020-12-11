@@ -16,6 +16,7 @@ const Cart = (props) => {
     fetchFromGuestCart,
     userIP,
     getJSON,
+    removeFromGuestCart,
   } = props;
   const [dataBaseQuantity, setDataBaseQuantity] = useState(dataBase);
 
@@ -24,7 +25,14 @@ const Cart = (props) => {
     return singleTotal;
   });
 
-  const totalCartprova = totalCart.reduce((a, b) => a + b, 0);
+  const guestTotalCart = guestCart.map((cart) => {
+    const singleTotal = cart.price * cart.quantityToOrder;
+    return singleTotal;
+  });
+
+  const totalCartprova = user
+    ? totalCart.reduce((a, b) => a + b, 0)
+    : guestTotalCart.reduce((a, b) => a + b, 0);
 
   const startUpdate = () => {
     for (let index = 0; index < dataBaseQuantity.length; index++) {
@@ -59,23 +67,21 @@ const Cart = (props) => {
 
   useEffect(() => {
     if (userIP) {
-      setTimeout(fetchFromGuestCart, 1000);
+      setInterval(fetchFromGuestCart, 10);
     }
-  }, []);
-
-  // useEffect(() => {
-  //   setTimeout(getJSON, 1000);
-  // }, []);
+  }, [userIP]);
 
   return (
     <section>
       <h1>total: £{totalCartprova}</h1>
       <CartList
+        dataBase={dataBase}
         user={user}
         userCart={userCart}
         removeFromCart={removeFromCart}
         updateQuantity={updateQuantity}
         guestCart={guestCart}
+        removeFromGuestCart={removeFromGuestCart}
       />
       <button
         onClick={() => {

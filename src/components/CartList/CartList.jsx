@@ -4,7 +4,15 @@ import styles from "./CartList.module.scss";
 import CartProduct from "../../components/CartProduct";
 
 const CartList = (props) => {
-  const { user, userCart, removeFromCart, updateQuantity, guestCart } = props;
+  const {
+    user,
+    userCart,
+    removeFromCart,
+    updateQuantity,
+    guestCart,
+    dataBase,
+    removeFromGuestCart,
+  } = props;
 
   const isUser = user ? userCart : guestCart;
 
@@ -14,6 +22,9 @@ const CartList = (props) => {
         product={product}
         removeFromCart={removeFromCart}
         updateQuantity={updateQuantity}
+        dataBase={dataBase}
+        removeFromGuestCart={removeFromGuestCart}
+        user={user}
       />
     </div>
   );

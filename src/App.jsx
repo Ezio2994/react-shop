@@ -27,8 +27,6 @@ function App() {
       });
   };
 
-  console.log(userIP);
-
   useEffect(() => {
     getJSON();
   }, []);
@@ -172,9 +170,19 @@ function App() {
       .catch((err) => console.error(err));
   };
 
+  const removeFromGuestCart = (product) => {
+    firestore
+      .collection("guests")
+      .doc(userIP)
+      .collection("Cart")
+      .doc(product.name)
+      .delete()
+      .then(fetchFromGuestCart)
+      .catch((err) => console.error(err));
+  };
+
   const bought = (isUser) => {
     if (isUser) {
-      console.log("done222");
       firestore
         .collection("users")
         .doc(user.uid)
@@ -225,11 +233,11 @@ function App() {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   if (guestCart.length) {
-  //     fetchFromGuestCart();
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (userIP) {
+      setInterval(fetchFromGuestCart, 10);
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -252,6 +260,7 @@ function App() {
         fetchFromGuestCart={fetchFromGuestCart}
         userIP={userIP}
         getJSON={getJSON}
+        removeFromGuestCart={removeFromGuestCart}
       />
     </div>
   );
