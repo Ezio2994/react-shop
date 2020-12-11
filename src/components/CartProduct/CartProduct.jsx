@@ -23,7 +23,7 @@ const CartProduct = (props) => {
   }, []);
 
   const available = dataBase.map((data) => {
-    if (data.id === id && data.availability > quantityToOrder) {
+    if (data.id === id && data.availability >= quantityToOrder) {
       return true;
     } else {
       return null;
