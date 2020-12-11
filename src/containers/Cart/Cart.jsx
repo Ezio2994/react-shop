@@ -12,6 +12,10 @@ const Cart = (props) => {
     bought,
     dataBase,
     fetchFromDataBase,
+    guestCart,
+    fetchFromGuestCart,
+    userIP,
+    getJSON,
   } = props;
   const [dataBaseQuantity, setDataBaseQuantity] = useState(dataBase);
 
@@ -53,18 +57,34 @@ const Cart = (props) => {
     setDataBaseQuantity(newScores);
   };
 
+  useEffect(() => {
+    if (userIP) {
+      setTimeout(fetchFromGuestCart, 1000);
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   setTimeout(getJSON, 1000);
+  // }, []);
+
   return (
     <section>
       <h1>total: £{totalCartprova}</h1>
       <CartList
+        user={user}
         userCart={userCart}
         removeFromCart={removeFromCart}
         updateQuantity={updateQuantity}
+        guestCart={guestCart}
       />
       <button
         onClick={() => {
           startUpdate();
-          bought();
+          if (user) {
+            bought(true);
+          } else {
+            bought(false);
+          }
         }}
       >
         Buy

@@ -10,6 +10,7 @@ function App() {
   const [dataBase, setDataBase] = useState([]);
   const [userData, setUserData] = useState([]);
   const [userCart, setUserCart] = useState([]);
+  const [guestCart, setGuestCart] = useState([]);
   const [userIP, setUsetIp] = useState("");
 
   const getJSON = () => {
@@ -20,6 +21,7 @@ function App() {
       .then((res) => {
         setUsetIp(res.ip_address);
       })
+      .then(fetchFromGuestCart)
       .catch((err) => {
         console.log(err);
       });
@@ -102,6 +104,19 @@ function App() {
       .catch((err) => console.error(err));
   };
 
+  const fetchFromGuestCart = () => {
+    firestore
+      .collection("guests")
+      .doc(userIP)
+      .collection("Cart")
+      .get()
+      .then((querySnapshot) => {
+        const currentData = querySnapshot.docs.map((doc) => doc.data());
+        setGuestCart(currentData);
+      })
+      .catch((err) => console.error(err));
+  };
+
   const addToFav = (product) => {
     firestore
       .collection("users")
@@ -142,7 +157,7 @@ function App() {
       .collection("Cart")
       .doc(product.name)
       .set({ ...product, quantityToOrder: howMany })
-      // .then(fetchFromUserCart)
+      .then(fetchFromGuestCart)
       .catch((err) => console.log(err));
   };
 
@@ -157,21 +172,41 @@ function App() {
       .catch((err) => console.error(err));
   };
 
-  const bought = () => {
-    firestore
-      .collection("users")
-      .doc(user.uid)
-      .collection("Cart")
-      .get()
-      .then((res) => {
-        res.forEach((element) => {
-          element.ref.delete();
-        });
-      })
-      .then(fetchFromUserCart)
-      .then(fetchFromUserFav)
-      .then(setTimeout(fetchFromUserCart, 10))
-      .catch((err) => console.error(err));
+  const bought = (isUser) => {
+    if (isUser) {
+      console.log("done222");
+      firestore
+        .collection("users")
+        .doc(user.uid)
+        .collection("Cart")
+        .get()
+        .then((res) => {
+          res.forEach((element) => {
+            element.ref.delete();
+          });
+        })
+        .then(fetchFromUserCart)
+        .then(fetchFromUserFav)
+        .then(setTimeout(fetchFromUserCart, 10))
+        .catch((err) => console.error(err));
+    } else {
+      console.log("done");
+      firestore
+        .collection("guests")
+        .doc(userIP)
+        .collection("Cart")
+        .get()
+        .then((res) => {
+          res.forEach((element) => {
+            element.ref.delete();
+          });
+        })
+        // .then(fetchFromUserCart)
+        // .then(fetchFromUserFav)
+        .then(fetchFromGuestCart)
+        .then(setTimeout(fetchFromGuestCart, 10))
+        .catch((err) => console.error(err));
+    }
   };
 
   useEffect(() => {
@@ -190,6 +225,12 @@ function App() {
     }
   }, [user]);
 
+  // useEffect(() => {
+  //   if (guestCart.length) {
+  //     fetchFromGuestCart();
+  //   }
+  // }, []);
+
   return (
     <div className="App">
       <NavBar signIn={signIn} signOut={signOut} user={user} />
@@ -207,6 +248,10 @@ function App() {
         bought={bought}
         fetchFromDataBase={fetchFromDataBase}
         addToGuestCart={addToGuestCart}
+        guestCart={guestCart}
+        fetchFromGuestCart={fetchFromGuestCart}
+        userIP={userIP}
+        getJSON={getJSON}
       />
     </div>
   );

@@ -19,6 +19,10 @@ const Routes = (props) => {
     bought,
     fetchFromDataBase,
     addToGuestCart,
+    guestCart,
+    fetchFromGuestCart,
+    userIP,
+    getJSON,
   } = props;
 
   return (
@@ -51,6 +55,10 @@ const Routes = (props) => {
         bought={bought}
         dataBase={dataBase}
         fetchFromDataBase={fetchFromDataBase}
+        guestCart={guestCart}
+        fetchFromGuestCart={fetchFromGuestCart}
+        userIP={userIP}
+        getJSON={getJSON}
       />
     </Router>
   );

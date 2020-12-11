@@ -23,7 +23,6 @@ const ProductCard = (props) => {
     ) : (
       <h3> Out of stock</h3>
     );
-  console.log(user);
   const stockForCart =
     availability > 0 ? (
       <>
