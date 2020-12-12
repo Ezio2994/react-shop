@@ -14,6 +14,7 @@ const ProductCard = (props) => {
     favComparison,
     addToCart,
     addToGuestCart,
+    category,
   } = props;
   const [counter, setCounter] = useState(1);
 
@@ -87,9 +88,16 @@ const ProductCard = (props) => {
     <p>LogIn to save this product on your favourites </p>
   );
 
+  const vegeterian = props.product.category === "v" ? <span>V</span> : null;
+  const vegan = props.product.category === "vg" ? <span>Vg</span> : null;
+
   return (
     <article className={styles.productCard}>
-      <h2>{name}</h2>
+      <h2>
+        {name}
+        {vegeterian}
+        {vegan}
+      </h2>
       <img src={img} alt="" />
       {stock}
       <p>£{price}</p>

@@ -1,20 +1,21 @@
 .cartProduct {
-    height: 120px;
-    width: 50%;
-    border: 3px solid black;
+  height: 120px;
+  width: 50%;
+  border: 3px solid black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+
+  article {
+    height: 100%;
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    column-gap: 20px;
 
-    article {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        column-gap: 20px;
-
-        img {
-            height: 100%;
-            width: 150px;
-        }
+    img {
+      height: 100%;
+      width: 150px;
     }
+  }
 }

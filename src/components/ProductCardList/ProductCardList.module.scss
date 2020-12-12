@@ -1,6 +1,15 @@
 .productsContainer {
-    margin-top: 50px;
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
+  padding-top: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  row-gap: 40px;
+  // background: rgb(180, 58, 58);
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(180, 58, 58, 1) 0%,
+  //   rgba(253, 29, 29, 1) 25%,
+  //   rgba(252, 176, 69, 1) 100%
+  // );
 }
