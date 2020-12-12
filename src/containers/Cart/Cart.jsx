@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./Cart.module.scss";
 import firebase, { firestore } from "../../firebase";
+import { UserContext } from "../../context/userContext"
+import { CrudContext } from "../../context/crudContext"
 
 import CartList from "../../components/CartList";
 
-const Cart = (props) => {
-  const {
-    user,
-    userCart,
-    removeFromCart,
-    bought,
-    dataBase,
-    fetchFromDataBase,
-    guestCart,
-    fetchFromGuestCart,
-    userIP,
-    getJSON,
-    removeFromGuestCart,
-  } = props;
+const Cart = () => {
+  const crudContext = useContext(CrudContext);
+  const { userCart, guestCart, bought, dataBase, fetchFromDataBase, fetchFromGuestCart, userIP } = crudContext
+  const userContext = useContext(UserContext)
+  const { user } = userContext
+
+
   const [dataBaseQuantity, setDataBaseQuantity] = useState(dataBase);
 
   const totalCart = userCart.map((cart) => {
@@ -75,13 +70,10 @@ const Cart = (props) => {
     <section>
       <h1>total: £{totalCartprova}</h1>
       <CartList
-        dataBase={dataBase}
         user={user}
         userCart={userCart}
-        removeFromCart={removeFromCart}
-        updateQuantity={updateQuantity}
         guestCart={guestCart}
-        removeFromGuestCart={removeFromGuestCart}
+        updateQuantity={updateQuantity}
       />
       <button
         onClick={() => {

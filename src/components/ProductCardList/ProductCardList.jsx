@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./ProductCardList.module.scss";
 import ProductCard from "../ProductCard";
 
 const ProductCardList = (props) => {
-  const {
-    user,
-    dataBase,
-    favComparison,
-    addToFav,
-    removeFromFav,
-    addToCart,
-    addToGuestCart,
-  } = props;
+  const { dataBase } = props;
 
   const getProductJsx = (product) => (
     <div key={product.id}>
-      <ProductCard
-        product={product}
-        user={user}
-        favComparison={favComparison}
-        addToFav={addToFav}
-        removeFromFav={removeFromFav}
-        addToCart={addToCart}
-        addToGuestCart={addToGuestCart}
-      />
+      <ProductCard product={product} />
     </div>
   );
 

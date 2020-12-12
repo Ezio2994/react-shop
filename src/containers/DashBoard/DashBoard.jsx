@@ -1,30 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./DashBoard.module.scss";
 import ProductCardList from "../../components/ProductCardList";
-import { firestore } from "../../firebase";
+import { CrudContext } from "../../context/crudContext"
 
-const DashBoard = (props) => {
-  const {
-    user,
-    dataBase,
-    favComparison,
-    addToFav,
-    removeFromFav,
-    addToCart,
-    addToGuestCart,
-  } = props;
+
+const DashBoard = () => {
+  const crudContext = useContext(CrudContext);
+  const { dataBase } = crudContext;
 
   return (
     <>
-      <ProductCardList
-        user={user}
-        favComparison={favComparison}
-        addToFav={addToFav}
-        removeFromFav={removeFromFav}
-        addToCart={addToCart}
-        dataBase={dataBase}
-        addToGuestCart={addToGuestCart}
-      />
+      <ProductCardList dataBase={dataBase} />
     </>
   );
 };

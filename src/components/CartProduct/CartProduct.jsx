@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./CartProduct.module.scss";
+import { CrudContext } from "../../context/crudContext";
 
 const CartProduct = (props) => {
+  const crudContext = useContext(CrudContext)
+  const { dataBase, removeFromCart, removeFromGuestCart } = crudContext;
   const { id, name, img, price, quantityToOrder } = props.product;
-
-  const {
-    removeFromCart,
-    updateQuantity,
-    dataBase,
-    removeFromGuestCart,
-    user,
-  } = props;
+  const { updateQuantity, user } = props;
 
   const [total, setTotal] = useState(0);
 
@@ -62,9 +58,7 @@ const CartProduct = (props) => {
             }
             updateQuantity(quantityToOrder, id, "+");
           }}
-        >
-          Remove
-        </button>
+        > Remove </button>
       </article>
     </div>
   );
