@@ -1,3 +1,4 @@
+import { navigate } from "@reach/router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import firebase, { provider } from "../firebase";
 import { CrudContext } from "./crudContext"
@@ -13,36 +14,39 @@ export const UserProvider = (props) => {
 
     const getJSON = () => {
         fetch("https://ipgeolocation.abstractapi.com/v1/?api_key=073d2577c8c04b7b962e16890059eea1")
-        .then((res) => res.json())
-        .then((res) => {
-            setUsetIp(res.ip_address);
-        })
-        .then(fetchFromGuestCart)
-        .catch((err) => {
-        console.log(err);
-        });
+            .then((res) => res.json())
+            .then((res) => {
+                setUsetIp(res.ip_address);
+            })
+            .then(fetchFromGuestCart)
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     const signIn = () => {
-        firebase.auth().signInWithRedirect(provider);
+        firebase.auth().signInWithRedirect(provider)
     };
 
     const signOut = () => {
         firebase
-        .auth()
-        .signOut()
-        .then(() => {
-        setUser(null);
-        })
-        .catch((error) => {
-        console.log(error);
-        });
+            .auth()
+            .signOut()
+            .then(() => {
+                setUser(null);
+            }).then(
+                navigate('/')
+            )
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     const getUser = () => {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 setUser(user);
+                navigate("/products")
             } else {
                 setUser(null);
             }
@@ -50,7 +54,7 @@ export const UserProvider = (props) => {
     };
 
     useEffect(() => {
-    getUser();
+        getUser();
     });
 
     useEffect(() => {
@@ -58,9 +62,9 @@ export const UserProvider = (props) => {
     }, []);
 
 
-return (
-    <UserContext.Provider value={{ user, signIn, signOut, userIP }}>
-        {props.children}
-    </UserContext.Provider>
+    return (
+        <UserContext.Provider value={{ user, signIn, signOut, userIP }}>
+            {props.children}
+        </UserContext.Provider>
     );
 };

@@ -49,17 +49,17 @@ const CartProduct = (props) => {
         <p>{quantityToOrder} *</p>
         <p>£{price} =</p>
         <p> £{total}</p>
-        <button
-          onClick={() => {
-            if (user) {
-              removeFromCart(props.product);
-            } else {
-              removeFromGuestCart(props.product);
-            }
-            updateQuantity(quantityToOrder, id, "+");
-          }}
-        > Remove </button>
       </article>
+      <button
+        onClick={() => {
+          if (user) {
+            removeFromCart(props.product);
+          } else {
+            removeFromGuestCart(props.product);
+          }
+          updateQuantity(quantityToOrder, id, "+");
+        }}
+      > Remove </button>
     </div>
   );
 };

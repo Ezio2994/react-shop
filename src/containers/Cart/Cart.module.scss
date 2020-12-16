@@ -1,0 +1,27 @@
+$primary-orange: rgba(252, 176, 69, 1);
+$primary-red: #EC1B23;
+$green: rgb(8, 241, 8);
+
+.cart {
+    min-height: 100vh;
+    width: 60%;
+    padding: 50px;
+    background-color: $primary-red;
+    margin: 0 auto;
+
+    .buyTotal {
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-evenly;
+
+        button {
+            height: 50px;
+            width: 50px;
+            border: none;
+            border-radius: 10px;
+            background-color: $primary-orange;
+
+        }
+    }
+}

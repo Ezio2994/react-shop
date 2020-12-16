@@ -1,11 +1,16 @@
+$primary-orange: rgba(252, 176, 69, 1);
+$primary-red: #EC1B23;
+$green: rgb(8, 241, 8);
+
 .cartProduct {
   height: 120px;
-  width: 50%;
-  border: 3px solid black;
+  width: 600px;
+  border: 3px solid $primary-orange;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  margin-top: 20px;
 
   article {
     height: 100%;
@@ -17,5 +22,14 @@
       height: 100%;
       width: 150px;
     }
+  }
+
+  button {
+    margin-right: 20px;
+    height: 50px;
+    width: 70px;
+    background-color: $primary-orange;
+    border: none;
+    border-radius: 10px;
   }
 }

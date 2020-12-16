@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styles from "./Favourites.module.scss";
 import ProductCardList from "../../components/ProductCardList";
 import { CrudContext } from "../../context/crudContext";
+import NavBar from "../../components/NavBar"
 
 const Favourites = (props) => {
   const crudContext = useContext(CrudContext)
@@ -21,7 +22,8 @@ const Favourites = (props) => {
 
   return (
     <>
-      <ProductCardList dataBase={filteredFav}/>
+      <NavBar />
+      <ProductCardList dataBase={filteredFav} />
     </>
   );
 };

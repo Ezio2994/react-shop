@@ -4,7 +4,7 @@ import styles from "./CartList.module.scss";
 import CartProduct from "../../components/CartProduct";
 
 const CartList = (props) => {
-  const { user, userCart, updateQuantity, guestCart} = props;
+  const { user, userCart, updateQuantity, guestCart } = props;
 
   const isUser = user ? userCart : guestCart;
 
@@ -18,7 +18,7 @@ const CartList = (props) => {
     </div>
   );
 
-  return <section>{isUser.map(getCartProductJsx)}</section>;
+  return <section className={styles.cart}>{isUser.map(getCartProductJsx)}</section>;
 };
 
 export default CartList;

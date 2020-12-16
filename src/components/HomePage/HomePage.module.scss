@@ -1,0 +1,34 @@
+$primary-orange: rgba(252, 176, 69, 1);
+$primary-red: #EC1B23;
+$green: rgb(8, 241, 8);
+
+.homePage {
+    height: 100vh;
+    width: 100%;
+    background-image: url("../../assets/AdobeStock_227503961-2400x1600.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+    article {
+        padding: 10% 15% 0;
+        width: 60%;
+        text-align: center;
+
+        h1 {
+            font-size: 42px;
+            color: $primary-red;
+        }
+
+        p {
+            font-size: 28px;
+        }
+
+        button {
+            font-size: 21px;
+            height: 50px;
+            width: 200px;
+            margin: 20px;
+        }
+    }
+}

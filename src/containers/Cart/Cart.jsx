@@ -3,6 +3,7 @@ import styles from "./Cart.module.scss";
 import firebase, { firestore } from "../../firebase";
 import { UserContext } from "../../context/userContext"
 import { CrudContext } from "../../context/crudContext"
+import NavBar from "../../components/NavBar"
 
 import CartList from "../../components/CartList";
 
@@ -15,18 +16,18 @@ const Cart = () => {
 
   const [dataBaseQuantity, setDataBaseQuantity] = useState(dataBase);
 
-  const totalCart = userCart.map((cart) => {
-    const singleTotal = cart.price * cart.quantityToOrder;
-    return singleTotal;
+  const userTotalCart = userCart.map((cart) => {
+    const total = cart.price * cart.quantityToOrder;
+    return total;
   });
 
   const guestTotalCart = guestCart.map((cart) => {
-    const singleTotal = cart.price * cart.quantityToOrder;
-    return singleTotal;
+    const total = cart.price * cart.quantityToOrder;
+    return total;
   });
 
   const totalCartprova = user
-    ? totalCart.reduce((a, b) => a + b, 0)
+    ? userTotalCart.reduce((a, b) => a + b, 0)
     : guestTotalCart.reduce((a, b) => a + b, 0);
 
   const startUpdate = () => {
@@ -62,32 +63,37 @@ const Cart = () => {
 
   useEffect(() => {
     if (userIP) {
-      setInterval(fetchFromGuestCart, 10);
+      fetchFromGuestCart()
     }
   }, [userIP]);
 
   return (
-    <section>
-      <h1>total: £{totalCartprova}</h1>
-      <CartList
-        user={user}
-        userCart={userCart}
-        guestCart={guestCart}
-        updateQuantity={updateQuantity}
-      />
-      <button
-        onClick={() => {
-          startUpdate();
-          if (user) {
-            bought(true);
-          } else {
-            bought(false);
-          }
-        }}
-      >
-        Buy
-      </button>
-    </section>
+    <>
+      <NavBar />
+      <section className={styles.cart}>
+        <article className={styles.buyTotal}>
+          <h2>total: £{totalCartprova}</h2>
+          <button
+            onClick={() => {
+              startUpdate();
+              if (user) {
+                bought(true);
+              } else {
+                bought(false);
+              }
+            }}
+          >
+            Buy
+        </button>
+        </article>
+        <CartList
+          user={user}
+          userCart={userCart}
+          guestCart={guestCart}
+          updateQuantity={updateQuantity}
+        />
+      </section>
+    </>
   );
 };
 
