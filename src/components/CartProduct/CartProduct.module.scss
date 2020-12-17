@@ -5,7 +5,8 @@ $green: rgb(8, 241, 8);
 .cartProduct {
   height: 120px;
   width: 600px;
-  border: 3px solid $primary-orange;
+  border: 3px solid $primary-red;
+  background-color: #FDE8D8;
   display: flex;
   justify-content: space-between;
   align-items: center;

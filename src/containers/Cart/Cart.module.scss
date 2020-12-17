@@ -4,9 +4,10 @@ $green: rgb(8, 241, 8);
 
 .cart {
     min-height: 100vh;
-    width: 60%;
+    width: 100%;
     padding: 50px;
-    background-color: $primary-red;
+    // background-color: $primary-red;
+    background-image: url("../../assets/AdobeStock_227503961-2400x1600.jpeg");
     margin: 0 auto;
 
     .buyTotal {

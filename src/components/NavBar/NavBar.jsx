@@ -24,7 +24,7 @@ const NavBar = () => {
 
   const favourites = user ? (
     <Link to='/favourites'>
-      <li><FontAwesomeIcon icon={['fas', 'heart']}></FontAwesomeIcon></li>
+      <li><button><FontAwesomeIcon icon={['fas', 'heart']}></FontAwesomeIcon></button></li>
     </Link>
   ) : (
       null
@@ -35,7 +35,7 @@ const NavBar = () => {
       <nav>
         <div>
           <div className={styles.dropdown}>
-            <button> <FontAwesomeIcon icon={['fas', 'filter']}></FontAwesomeIcon> </button>
+            <button> <FontAwesomeIcon icon={['fas', 'filter']}></FontAwesomeIcon></button>
             <div className={styles.dropdownContent}>
               <p>Vegeterian <input type="checkbox" name="vegeterian" id="vegeterian" onChange={() => setVChecked(!Vchecked)} /></p>
               <p>Vegan <input type="checkbox" name="vegan" id="vegan" onChange={() => setVgChecked(!vgChecked)} /></p>
@@ -49,14 +49,14 @@ const NavBar = () => {
           </Link>
         </div>
         <Link to="/">
-          <h1>The Sicilian Shop</h1>
+          <h1> The Sicilian Shop</h1>
         </Link>
         <ul>
           {favourites}
           <Link to="/cart">
-            <li><FontAwesomeIcon icon={['fas', 'shopping-basket']}></FontAwesomeIcon></li>
+            <li><button><FontAwesomeIcon icon={['fas', 'shopping-basket']}></FontAwesomeIcon></button></li>
           </Link>
-          {signed}
+          <button>{signed}</button>
         </ul>
       </nav>
     </>

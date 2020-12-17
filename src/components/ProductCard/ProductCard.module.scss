@@ -5,7 +5,7 @@ $green: rgb(8, 241, 8);
 .productCard {
   width: 400px;
   height: 460px;
-  background-color: whitesmoke;
+  background-color: #FDE8D8;
   border-radius: 20px;
   text-align: center;
 
@@ -41,8 +41,18 @@ $green: rgb(8, 241, 8);
     cursor: pointer;
     font-weight: bolder;
 
+    span {
+      color: black;
+      text-decoration: none;
+      display: none;
+    }
+
     &:focus {
       outline: none;
+
+      span {
+        display: inline;
+      }
     }
   }
 
@@ -100,23 +110,3 @@ $green: rgb(8, 241, 8);
   }
   }
 }
-
-// .vFilterOn{
-//   display: none;
-// }
-
-// .vgFilterOn{
-//   display: none;
-// }
-
-// .starterFilterOn{
-//   display: none;
-// }
-
-// .mainFilterOn{
-//   display: none;
-// }
-
-// .dessertFilterOn{
-//   display: none;
-// }

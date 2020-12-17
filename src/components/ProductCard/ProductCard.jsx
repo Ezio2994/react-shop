@@ -69,12 +69,16 @@ const ProductCard = (props) => {
         <button className={styles.add}
           onClick={() => {
             if (user) {
-              addToCart(props.product, Number(quantityOnUserCart) + counter);
+              if (Number(quantityOnUserCart) + counter <= availability) {
+                addToCart(props.product, Number(quantityOnUserCart) + counter);
+              }
             } else {
-              addToGuestCart(props.product, Number(quantityOnGuestCart) + counter);
+              if (Number(quantityOnGuestCart) + counter <= availability) {
+                addToGuestCart(props.product, Number(quantityOnGuestCart) + counter);
+              }
             }
           }}
-        > ADD</button>
+        > ADD<span>ED</span></button>
       </>
     ) : (
         <h3> Out of stock</h3>
