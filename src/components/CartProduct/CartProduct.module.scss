@@ -34,3 +34,31 @@ $green: rgb(8, 241, 8);
     border-radius: 10px;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .cartProduct {
+    height: fit-content;
+    width: fit-content;
+    flex-direction: column;
+
+    article {
+      flex-direction: column;
+
+      img {
+        width: 180px;
+        height: 150px;
+      }
+    }
+
+    .money {
+      width: 100%;
+      padding: 10px;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    button {
+      margin: 0;
+    }
+  }
+}

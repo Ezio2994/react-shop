@@ -1,18 +1,27 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 export const FilterContext = createContext({});
 
 export const FilterProvider = (props) => {
-    const [Vchecked, setVChecked] = useState(false);
-    const [vgChecked, setVgChecked] = useState(false);
-    const [startersChecked, setStartersChecked] = useState(false);
-    const [dessertsChecked, setDessertsChecked] = useState(false);
-    const [mainsChecked, setMainsChecked] = useState(false);
+    const [category, setCategory] = useState("");
+    const [course, setCourse] = useState("");
 
 
+    const handleCategory = (e) => {
+        setCategory(e.target.value)
+    }
+
+    const handleCourse = (e) => {
+        setCourse(e.target.value)
+    }
+
+    const reset = () => {
+        setCategory("")
+        setCourse("")
+    }
 
     return (
-        <FilterContext.Provider value={{ Vchecked, setVChecked, vgChecked, setVgChecked, startersChecked, setStartersChecked, dessertsChecked, setDessertsChecked, mainsChecked, setMainsChecked }}>
+        <FilterContext.Provider value={{ category, course, handleCourse, handleCategory, reset }}>
             {props.children}
         </FilterContext.Provider>
     );

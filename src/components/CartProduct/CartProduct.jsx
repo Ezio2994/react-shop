@@ -45,7 +45,7 @@ const CartProduct = (props) => {
         <img src={img} alt="" />
         <p>{name}</p>
       </article>
-      <article>
+      <article className={styles.money}>
         <p>{quantityToOrder} *</p>
         <p>£{price} =</p>
         <p> £{total}</p>

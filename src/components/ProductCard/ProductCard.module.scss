@@ -110,3 +110,10 @@ $green: rgb(8, 241, 8);
   }
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .productCard {
+    width: 100%;
+    border-radius: 0;
+  }
+}

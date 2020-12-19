@@ -3,15 +3,22 @@ import styles from "./Cart.module.scss";
 import firebase, { firestore } from "../../firebase";
 import { UserContext } from "../../context/userContext"
 import { CrudContext } from "../../context/crudContext"
-import NavBar from "../../components/NavBar"
+import { FilterContext } from "../../context/filterContext";
 
+import NavBar from "../../components/NavBar"
 import CartList from "../../components/CartList";
 
 const Cart = () => {
-  const crudContext = useContext(CrudContext);
-  const { userCart, guestCart, bought, dataBase, fetchFromDataBase, fetchFromGuestCart, userIP } = crudContext
   const userContext = useContext(UserContext)
+  const crudContext = useContext(CrudContext);
+  const filterContext = useContext(FilterContext);
   const { user } = userContext
+  const { userCart, guestCart, bought, dataBase, fetchFromDataBase, fetchFromGuestCart, userIP } = crudContext
+  const { reset } = filterContext
+
+  useEffect(() => {
+    reset()
+  }, [])
 
 
   const [dataBaseQuantity, setDataBaseQuantity] = useState(dataBase);

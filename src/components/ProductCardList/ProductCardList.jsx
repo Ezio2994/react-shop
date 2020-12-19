@@ -5,26 +5,20 @@ import { FilterContext } from "../../context/filterContext";
 
 const ProductCardList = (props) => {
   const filterContext = useContext(FilterContext);
-  const { Vchecked, vgChecked, startersChecked, dessertsChecked, mainsChecked } = filterContext;
+  const { category, course } = filterContext;
   let { dataBase } = props;
 
-  if (Vchecked) {
+  if (category === "vegeterian") {
     dataBase = dataBase.filter(data => data.category === 'v' || data.category === 'vg')
-  }
-
-  if (vgChecked) {
+  } else if (category === "vegan") {
     dataBase = dataBase.filter(data => data.category === 'vg')
   }
 
-  if (startersChecked) {
+  if (course === "starter") {
     dataBase = dataBase.filter(data => data.course === 'starter')
-  }
-
-  if (dessertsChecked) {
+  } else if (course === "dessert") {
     dataBase = dataBase.filter(data => data.course === 'dessert')
-  }
-
-  if (mainsChecked) {
+  } else if (course === "main") {
     dataBase = dataBase.filter(data => data.course === 'main')
   }
 

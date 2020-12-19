@@ -9,12 +9,10 @@ import { Link } from "@reach/router";
 
 const NavBar = () => {
   const filterContext = useContext(FilterContext);
-  const { Vchecked, setVChecked, vgChecked, setVgChecked, startersChecked, setStartersChecked, dessertsChecked, setDessertsChecked, mainsChecked, setMainsChecked } = filterContext;
-
+  const { handleCourse, handleCategory, reset } = filterContext;
 
   const userContext = useContext(UserContext);
   const { signIn, signOut, user } = userContext;
-
 
   const signed = user ? (
     <li onClick={signOut}><FontAwesomeIcon icon={['fas', 'sign-out-alt']}></FontAwesomeIcon></li>
@@ -24,7 +22,7 @@ const NavBar = () => {
 
   const favourites = user ? (
     <Link to='/favourites'>
-      <li><button><FontAwesomeIcon icon={['fas', 'heart']}></FontAwesomeIcon></button></li>
+      <li><button className={styles.mainButton}><FontAwesomeIcon icon={['fas', 'heart']}></FontAwesomeIcon></button></li>
     </Link>
   ) : (
       null
@@ -35,17 +33,25 @@ const NavBar = () => {
       <nav>
         <div>
           <div className={styles.dropdown}>
-            <button> <FontAwesomeIcon icon={['fas', 'filter']}></FontAwesomeIcon></button>
+            <button className={styles.mainButton}><FontAwesomeIcon icon={['fas', 'filter']}></FontAwesomeIcon></button>
             <div className={styles.dropdownContent}>
-              <p>Vegeterian <input type="checkbox" name="vegeterian" id="vegeterian" onChange={() => setVChecked(!Vchecked)} /></p>
-              <p>Vegan <input type="checkbox" name="vegan" id="vegan" onChange={() => setVgChecked(!vgChecked)} /></p>
-              <p>Starters <input type="checkbox" name="starters" id="starters" onChange={() => setStartersChecked(!startersChecked)} /></p>
-              <p>Mains <input type="checkbox" name="mains" id="mains" onChange={() => setMainsChecked(!mainsChecked)} /></p>
-              <p>Desserts <input type="checkbox" name="desserts" id="desserts" onChange={() => setDessertsChecked(!dessertsChecked)} /></p>
+              <article onChange={handleCategory}>
+                <p>Vegeterian <input type="radio" name="category" value="vegeterian" /></p>
+                <p>Vegan <input type="radio" name="category" value="vegan" /></p>
+              </article>
+              <article onChange={handleCourse}>
+                <p>Starters <input type="radio" name="course" value="starter" /></p>
+                <p>Mains <input type="radio" name="course" value="main" /></p>
+                <p>Desserts <input type="radio" name="course" value="dessert" /></p>
+              </article>
+              <button onClick={() => {
+                reset()
+                document.querySelectorAll('input[type=radio]').forEach(el => el.checked = false);
+              }}> No Filters</button>
             </div>
           </div>
           <Link to='/products'>
-            <button><FontAwesomeIcon icon={['fas', 'home']}></FontAwesomeIcon></button>
+            <button className={styles.mainButton}><FontAwesomeIcon icon={['fas', 'home']}></FontAwesomeIcon></button>
           </Link>
         </div>
         <Link to="/">
@@ -54,9 +60,9 @@ const NavBar = () => {
         <ul>
           {favourites}
           <Link to="/cart">
-            <li><button><FontAwesomeIcon icon={['fas', 'shopping-basket']}></FontAwesomeIcon></button></li>
+            <li><button className={styles.mainButton}><FontAwesomeIcon icon={['fas', 'shopping-basket']}></FontAwesomeIcon></button></li>
           </Link>
-          <button>{signed}</button>
+          <button className={styles.mainButton}>{signed}</button>
         </ul>
       </nav>
     </>

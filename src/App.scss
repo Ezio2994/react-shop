@@ -8,3 +8,9 @@
 body {
   background-color: rgba(252, 176, 69, 1);
 }
+
+@media only screen and (min-width: 600px) {
+  body {
+    min-width: 900px;
+  }
+}

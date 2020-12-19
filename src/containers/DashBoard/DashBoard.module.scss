@@ -1,0 +1,28 @@
+$primary-red: #EC1B23;
+
+body {
+    background-image: url("../../assets/AdobeStock_227503961-2400x1600.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    .mobileHeader {
+        display: none;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    body {
+        .mobileHeader {
+            display: block;
+            text-align: center;
+            color: $primary-red;
+            font-size: 38px;
+        }
+    }
+
+}

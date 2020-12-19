@@ -36,8 +36,6 @@ const ProductCard = (props) => {
   const quantityOnGuestCart = getQuantityOnGuestCart.filter(curr => curr !== null)
 
 
-  console.log(Number(quantityOnUserCart) + counter);
-
   const isInStock =
     availability > 0 ? (
       <h3>In stock: {availability}</h3>
