@@ -14,8 +14,6 @@ function App() {
       <UserProvider>
         <CrudProvider>
           <FilterProvider>
-            {/* <NavBar />
-            <HomePage /> */}
             <Routes />
           </FilterProvider>
         </CrudProvider>

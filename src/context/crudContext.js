@@ -72,6 +72,15 @@ export const CrudProvider = (props) => {
             .catch((err) => console.error(err));
     };
 
+    const addToDataBase = (product) => {
+        firestore
+            .collection("dataBase")
+            .doc(product.name)
+            .set(product)
+            .then(fetchFromDataBase)
+            .catch((err) => console.log(err));
+    };
+
     const addToFav = (product) => {
         firestore
             .collection("users")
@@ -194,7 +203,7 @@ export const CrudProvider = (props) => {
     }, [userIP]);
 
     return (
-        <CrudContext.Provider value={{ dataBase, userData, userCart, guestCart, checkIfFav, addToFav, removeFromFav, addToCart, addToGuestCart, removeFromCart, removeFromGuestCart, bought, fetchFromDataBase, fetchFromGuestCart }}>
+        <CrudContext.Provider value={{ dataBase, userData, userCart, guestCart, checkIfFav, addToFav, removeFromFav, addToCart, addToGuestCart, removeFromCart, removeFromGuestCart, bought, fetchFromDataBase, fetchFromGuestCart, addToDataBase }}>
             {props.children}
         </CrudContext.Provider>
     );

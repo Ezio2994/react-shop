@@ -90,7 +90,6 @@ nav {
     .dropdown {
         position: relative;
         display: inline-block;
-        width: 5%;
 
         &:hover .dropdownContent {
             display: block;
@@ -137,7 +136,7 @@ nav {
   nav {
     flex-wrap: wrap;
     height: 150px;
-    justify-content: center;
+    justify-content: space-around;
     
     h1 {
       display: none;

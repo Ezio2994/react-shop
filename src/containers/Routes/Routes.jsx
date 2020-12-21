@@ -5,6 +5,7 @@ import HomePage from "../../components/HomePage"
 import DashBoard from "../DashBoard";
 import Favourites from "../Favourites";
 import Cart from "../Cart";
+import Settings from "../Settings"
 
 const Routes = () => {
 
@@ -14,6 +15,7 @@ const Routes = () => {
       <DashBoard path="products" />
       <Favourites path="favourites" />
       <Cart path="cart" />
+      <Settings path="settings" />
     </Router>
   );
 };

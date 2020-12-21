@@ -79,7 +79,7 @@ const Cart = () => {
       <NavBar />
       <section className={styles.cart}>
         <article className={styles.buyTotal}>
-          <h2>total: £{totalCartprova}</h2>
+          <h2>Total: £{totalCartprova}</h2>
           <button
             onClick={() => {
               startUpdate();

@@ -3,7 +3,7 @@ $primary-red: #EC1B23;
 $green: rgb(8, 241, 8);
 
 .cart {
-    min-height: 100vh;
+    min-height: 90vh;
     width: 100%;
     padding: 50px;
     margin: 0 auto;
@@ -13,6 +13,11 @@ $green: rgb(8, 241, 8);
         margin-top: 20px;
         display: flex;
         justify-content: space-evenly;
+
+        h2 {
+            color: $primary-red;
+            font-size: 32px;
+        }
 
         button {
             height: 50px;

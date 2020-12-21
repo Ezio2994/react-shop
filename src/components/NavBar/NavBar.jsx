@@ -20,6 +20,14 @@ const NavBar = () => {
       <li onClick={signIn}><FontAwesomeIcon icon={['fas', 'sign-in-alt']}></FontAwesomeIcon></li>
     )
 
+  const settings = user ? (
+    <Link to='/settings'>
+      <button className={styles.mainButton}><FontAwesomeIcon icon={['fas', 'cogs']}></FontAwesomeIcon></button>
+    </Link>
+  ) : (
+      null
+    )
+
   const favourites = user ? (
     <Link to='/favourites'>
       <li><button className={styles.mainButton}><FontAwesomeIcon icon={['fas', 'heart']}></FontAwesomeIcon></button></li>
@@ -53,6 +61,7 @@ const NavBar = () => {
           <Link to='/products'>
             <button className={styles.mainButton}><FontAwesomeIcon icon={['fas', 'home']}></FontAwesomeIcon></button>
           </Link>
+          {settings}
         </div>
         <Link to="/">
           <h1> The Sicilian Shop</h1>
