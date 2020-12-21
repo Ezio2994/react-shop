@@ -14,6 +14,7 @@ export const UserProvider = (props) => {
     const [isUserAdmin, setIsUserAdmin] = useState(false)
 
 
+
     const getJSON = () => {
         const url = `https://api.astroip.co/2.99.115.173?api_key=a45dc99e-f914-4961-8009-54fca96d8819`
         const proxyUrl = `https://agile-island-79839.herokuapp.com/`
@@ -42,7 +43,7 @@ export const UserProvider = (props) => {
                 console.log("dataBase request made");
                 setIsUserAdmin(currentData[0].admin);
             })
-            .catch((err) => console.error(err));
+            .catch();
     };
 
 

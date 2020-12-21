@@ -23,7 +23,7 @@ const ProductCardList = (props) => {
   }
 
   const getProductJsx = (product) => (
-    <div key={product.id}>
+    <div key={product.name}>
       <ProductCard product={product} />
     </div>
   );

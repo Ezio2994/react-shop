@@ -12,12 +12,12 @@ const ProductCard = (props) => {
 
   const { signIn, user } = userContext;
   const { addToFav, removeFromFav, checkIfFav, addToCart, addToGuestCart, userCart, guestCart } = crudContext;
-  const { id, name, img, availability, price, description, category } = props.product;
+  const { name, img, availability, price, description, category } = props.product;
 
   const [counter, setCounter] = useState(1);
 
   const getQuantityOnUserCart = userCart.map(curr => {
-    if (curr.id === id) {
+    if (curr.name === name) {
       return curr.quantityToOrder
     } else {
       return null
@@ -25,7 +25,7 @@ const ProductCard = (props) => {
   })
 
   const getQuantityOnGuestCart = guestCart.map(curr => {
-    if (curr.id === id) {
+    if (curr.name === name) {
       return curr.quantityToOrder
     } else {
       return null
@@ -82,12 +82,12 @@ const ProductCard = (props) => {
         <h3> Out of stock</h3>
       );
 
-  const heartIcon = checkIfFav.includes(id) ? ["fas", "heart"] : ["far", "heart"];
+  const heartIcon = checkIfFav.includes(name) ? ["fas", "heart"] : ["far", "heart"];
 
   const ifUserAddToFav = user ? (
     <span
       onClick={() => {
-        if (!checkIfFav.includes(id)) {
+        if (!checkIfFav.includes(name)) {
           addToFav(props.product);
         } else {
           removeFromFav(props.product);

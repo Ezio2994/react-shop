@@ -9,7 +9,7 @@ const CartList = (props) => {
   const isUser = user ? userCart : guestCart;
 
   const getCartProductJsx = (product) => (
-    <div className={styles.cartContainer} key={product.id}>
+    <div className={styles.cartContainer} key={product.name}>
       <CartProduct
         product={product}
         updateQuantity={updateQuantity}

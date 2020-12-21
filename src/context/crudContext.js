@@ -14,8 +14,8 @@ export const CrudProvider = (props) => {
     const [userCart, setUserCart] = useState([]);
     const [guestCart, setGuestCart] = useState([]);
 
-    const userDataId = userData.map((data) => data.id);
-    const dataBaseId = dataBase.map((data) => data.id);
+    const userDataId = userData.map((data) => data.name);
+    const dataBaseId = dataBase.map((data) => data.name);
 
     const checkIfFav = userDataId.filter((value) => dataBaseId.includes(value));
 
@@ -77,6 +77,24 @@ export const CrudProvider = (props) => {
             .collection("dataBase")
             .doc(product.name)
             .set(product)
+            .then(fetchFromDataBase)
+            .catch((err) => console.log(err));
+    };
+
+    const updateDataBase = (product) => {
+        firestore
+            .collection("dataBase")
+            .doc(product.name)
+            .update(product)
+            .then(fetchFromDataBase)
+            .catch((err) => console.log(err));
+    };
+
+    const deleteDataBaseProduct = (product) => {
+        firestore
+            .collection("dataBase")
+            .doc(product)
+            .delete()
             .then(fetchFromDataBase)
             .catch((err) => console.log(err));
     };
@@ -203,7 +221,7 @@ export const CrudProvider = (props) => {
     }, [userIP]);
 
     return (
-        <CrudContext.Provider value={{ dataBase, userData, userCart, guestCart, checkIfFav, addToFav, removeFromFav, addToCart, addToGuestCart, removeFromCart, removeFromGuestCart, bought, fetchFromDataBase, fetchFromGuestCart, addToDataBase }}>
+        <CrudContext.Provider value={{ dataBase, userData, userCart, guestCart, checkIfFav, addToFav, removeFromFav, addToCart, addToGuestCart, removeFromCart, removeFromGuestCart, bought, fetchFromDataBase, fetchFromGuestCart, addToDataBase, updateDataBase, deleteDataBaseProduct }}>
             {props.children}
         </CrudContext.Provider>
     );
