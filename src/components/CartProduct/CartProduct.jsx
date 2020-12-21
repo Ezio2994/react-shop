@@ -5,7 +5,7 @@ import { CrudContext } from "../../context/crudContext";
 const CartProduct = (props) => {
   const crudContext = useContext(CrudContext)
   const { dataBase, removeFromCart, removeFromGuestCart } = crudContext;
-  const { id, name, img, price, quantityToOrder } = props.product;
+  const { name, img, price, quantityToOrder } = props.product;
   const { updateQuantity, user } = props;
 
   const [total, setTotal] = useState(0);
@@ -19,7 +19,7 @@ const CartProduct = (props) => {
   }, []);
 
   const available = dataBase.map((data) => {
-    if (data.id === id && data.availability >= quantityToOrder) {
+    if (data.name === name && data.availability >= quantityToOrder) {
       return true;
     } else {
       return null;
@@ -38,7 +38,7 @@ const CartProduct = (props) => {
 
   return (
     <div
-      onLoad={() => updateQuantity(quantityToOrder, id, "-")}
+      onLoad={() => updateQuantity(quantityToOrder, name, "-")}
       className={styles.cartProduct}
     >
       <article>
@@ -57,7 +57,7 @@ const CartProduct = (props) => {
           } else {
             removeFromGuestCart(props.product);
           }
-          updateQuantity(quantityToOrder, id, "+");
+          updateQuantity(quantityToOrder, name, "+");
         }}
       > Remove </button>
     </div>
