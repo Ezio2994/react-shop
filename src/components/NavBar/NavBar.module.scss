@@ -37,6 +37,7 @@ nav {
     transition: all 0.2s ease-in-out;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 
     &:focus {
       outline: none;
@@ -72,12 +73,14 @@ nav {
       font-size: 38px;
   }
 
+  .noShow {
+    display: none;
+  }
+
   div {
       margin-left: 5px;
       display: flex;
       justify-content: space-between;
-      width: 220px;
-
       
     button {
       color: $primary-red;
@@ -132,7 +135,7 @@ nav {
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   nav {
     flex-wrap: wrap;
     height: 150px;

@@ -10,9 +10,10 @@ import { Link } from "@reach/router";
 const NavBar = () => {
   const filterContext = useContext(FilterContext);
   const { handleCourse, handleCategory, reset } = filterContext;
-
   const userContext = useContext(UserContext);
   const { signIn, signOut, user } = userContext;
+
+  const [showHeader, setShowHeader] = useState(true);
 
   const signed = user ? (
     <li onClick={signOut}><FontAwesomeIcon icon={['fas', 'sign-out-alt']}></FontAwesomeIcon></li>
@@ -35,6 +36,16 @@ const NavBar = () => {
   ) : (
       null
     )
+
+  window.onscroll = () => {
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+      setShowHeader(true)
+    } else if (document.body.scrollTop < 50 || document.documentElement.scrollTop < 50) {
+      setShowHeader(false)
+    }
+  }
+
+  const show = showHeader ? styles.noShow : null;
 
   return (
     <>
@@ -64,7 +75,7 @@ const NavBar = () => {
           {settings}
         </div>
         <Link to="/">
-          <h1> The Sicilian Shop</h1>
+          <h1 className={show}> The Sicilian Shop</h1>
         </Link>
         <ul>
           {favourites}

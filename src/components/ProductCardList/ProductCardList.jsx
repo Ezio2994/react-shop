@@ -28,6 +28,7 @@ const ProductCardList = (props) => {
     </div>
   );
 
+
   return (
     <section className={styles.productsContainer}>
       {dataBase.map(getProductJsx)}

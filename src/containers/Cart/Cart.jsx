@@ -55,17 +55,17 @@ const Cart = () => {
       .catch((err) => console.log(err));
   };
 
-  const updateQuantity = (value, id, operator) => {
-    const newScores = dataBaseQuantity.map((scoreObj) => {
-      if (scoreObj.id === id && operator === "-") {
-        return { ...scoreObj, availability: scoreObj.availability - value };
-      } else if (scoreObj.id === id && operator === "+") {
-        return { ...scoreObj, availability: scoreObj.availability + value };
+  const updateQuantity = (value, name, operator) => {
+    const newQuantity = dataBaseQuantity.map((quantityObject) => {
+      if (quantityObject.name === name && operator === "-") {
+        return { ...quantityObject, availability: quantityObject.availability - value };
+      } else if (quantityObject.name === name && operator === "+") {
+        return { ...quantityObject, availability: quantityObject.availability + value };
       } else {
-        return scoreObj;
+        return quantityObject;
       }
     });
-    setDataBaseQuantity(newScores);
+    setDataBaseQuantity(newQuantity);
   };
 
   useEffect(() => {

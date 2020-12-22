@@ -4,7 +4,8 @@ $green: rgb(8, 241, 8);
 
 .productCard {
   width: 400px;
-  height: 460px;
+  min-height: 460px;
+  height: fit-content;
   background-color: #FDE8D8;
   border-radius: 20px;
   text-align: center;

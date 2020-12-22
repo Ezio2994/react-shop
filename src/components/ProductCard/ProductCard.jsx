@@ -35,7 +35,6 @@ const ProductCard = (props) => {
   const quantityOnUserCart = getQuantityOnUserCart.filter(curr => curr !== null)
   const quantityOnGuestCart = getQuantityOnGuestCart.filter(curr => curr !== null)
 
-
   const isInStock =
     availability > 0 ? (
       <h3>In stock: {availability}</h3>
@@ -66,6 +65,7 @@ const ProductCard = (props) => {
           }}> + </button>
         <button className={styles.add}
           onClick={() => {
+            setCounter(1)
             if (user) {
               if (Number(quantityOnUserCart) + counter <= availability) {
                 addToCart(props.product, Number(quantityOnUserCart) + counter);
