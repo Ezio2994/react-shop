@@ -13,60 +13,51 @@ const Cart = () => {
   const crudContext = useContext(CrudContext);
   const filterContext = useContext(FilterContext);
   const { user } = userContext
-  const { userCart, guestCart, bought, dataBase, fetchFromDataBase, fetchFromGuestCart, userIP } = crudContext
+  const { userCart, guestCart, bought, fetchFromDataBase, fetchFromGuestCart, userIP } = crudContext
   const { reset } = filterContext
 
   useEffect(() => {
     reset()
   }, [])
 
-
-  const [dataBaseQuantity, setDataBaseQuantity] = useState(dataBase);
-
   const userTotalCart = userCart.map((cart) => {
     const total = cart.price * cart.quantityToOrder;
     return total;
   });
+
+  let currentCart = []
+
+  if (user) {
+    userCart.forEach(product => {
+      currentCart.push({ [product.name]: product.quantityToOrder })
+    })
+  } else {
+    guestCart.forEach(product => {
+      currentCart.push({ [product.name]: product.quantityToOrder })
+    })
+  }
+
+  const updateQuantity = () => {
+    currentCart.forEach(product => updateDataBaseQuantity(...Object.keys(product), ...Object.values(product)))
+  }
+
+  const updateDataBaseQuantity = (name, quantity) => {
+    firestore
+      .collection("dataBase")
+      .doc(name)
+      .update({ availability: firebase.firestore.FieldValue.increment(- quantity) })
+      .then(fetchFromDataBase)
+      .catch((err) => console.log(err));
+  };
 
   const guestTotalCart = guestCart.map((cart) => {
     const total = cart.price * cart.quantityToOrder;
     return total;
   });
 
-  const totalCartprova = user
+  const totalCartPrice = user
     ? userTotalCart.reduce((a, b) => a + b, 0)
     : guestTotalCart.reduce((a, b) => a + b, 0);
-
-  const startUpdate = () => {
-    for (let index = 0; index < dataBaseQuantity.length; index++) {
-      updateDataBaseQuantity(
-        dataBaseQuantity[index].name,
-        dataBaseQuantity[index]
-      );
-    }
-  };
-
-  const updateDataBaseQuantity = (name, product) => {
-    firestore
-      .collection("dataBase")
-      .doc(name)
-      .set({ ...product })
-      .then(fetchFromDataBase)
-      .catch((err) => console.log(err));
-  };
-
-  const updateQuantity = (value, name, operator) => {
-    const newQuantity = dataBaseQuantity.map((quantityObject) => {
-      if (quantityObject.name === name && operator === "-") {
-        return { ...quantityObject, availability: quantityObject.availability - value };
-      } else if (quantityObject.name === name && operator === "+") {
-        return { ...quantityObject, availability: quantityObject.availability + value };
-      } else {
-        return quantityObject;
-      }
-    });
-    setDataBaseQuantity(newQuantity);
-  };
 
   useEffect(() => {
     if (userIP) {
@@ -79,10 +70,10 @@ const Cart = () => {
       <NavBar />
       <section className={styles.cart}>
         <article className={styles.buyTotal}>
-          <h2>Total: £{totalCartprova}</h2>
+          <h2>Total: £{totalCartPrice}</h2>
           <button
             onClick={() => {
-              startUpdate();
+              updateQuantity()
               if (user) {
                 bought(true);
               } else {
@@ -97,7 +88,6 @@ const Cart = () => {
           user={user}
           userCart={userCart}
           guestCart={guestCart}
-          updateQuantity={updateQuantity}
         />
       </section>
     </>

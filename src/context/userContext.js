@@ -14,7 +14,6 @@ export const UserProvider = (props) => {
     const [isUserAdmin, setIsUserAdmin] = useState(false)
 
 
-
     const getJSON = () => {
         const url = `https://api.astroip.co/2.99.115.173?api_key=a45dc99e-f914-4961-8009-54fca96d8819`
         const proxyUrl = `https://agile-island-79839.herokuapp.com/`
@@ -22,15 +21,12 @@ export const UserProvider = (props) => {
             .then((res) => res.json())
             .then((res) => {
                 setUsetIp(res.requester_ip);
-                console.log(res.requester_ip);
             })
             .then(fetchFromGuestCart)
             .catch((err) => {
                 console.log(err);
             });
     };
-
-    console.log(user);
 
     const fetchFromUserAdmin = () => {
         firestore
@@ -40,7 +36,6 @@ export const UserProvider = (props) => {
             .get()
             .then((querySnapshot) => {
                 const currentData = querySnapshot.docs.map((doc) => doc.data());
-                console.log("dataBase request made");
                 setIsUserAdmin(currentData[0].admin);
             })
             .catch();
@@ -76,6 +71,7 @@ export const UserProvider = (props) => {
         });
     };
 
+
     useEffect(() => {
         getUser();
     });
@@ -89,6 +85,8 @@ export const UserProvider = (props) => {
             fetchFromUserAdmin()
         }
     }, [user])
+
+
 
 
     return (

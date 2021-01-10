@@ -25,7 +25,6 @@ export const CrudProvider = (props) => {
             .get()
             .then((querySnapshot) => {
                 const currentData = querySnapshot.docs.map((doc) => doc.data());
-                console.log("dataBase request made");
                 setDataBase(currentData);
             });
     };
@@ -38,7 +37,6 @@ export const CrudProvider = (props) => {
             .get()
             .then((querySnapshot) => {
                 const currentData = querySnapshot.docs.map((doc) => doc.data());
-                console.log("dataBase request made");
                 setUserData(currentData);
             })
             .catch((err) => console.error(err));
@@ -52,7 +50,6 @@ export const CrudProvider = (props) => {
             .get()
             .then((querySnapshot) => {
                 const currentData = querySnapshot.docs.map((doc) => doc.data());
-                console.log("dataBase request made");
                 setUserCart(currentData);
             })
             .catch((err) => console.error(err));
@@ -66,7 +63,6 @@ export const CrudProvider = (props) => {
             .get()
             .then((querySnapshot) => {
                 const currentData = querySnapshot.docs.map((doc) => doc.data());
-                console.log("dataBase request made");
                 setGuestCart(currentData);
             })
             .catch((err) => console.error(err));

@@ -6,7 +6,7 @@ const CartProduct = (props) => {
   const crudContext = useContext(CrudContext)
   const { dataBase, removeFromCart, removeFromGuestCart } = crudContext;
   const { name, img, price, quantityToOrder } = props.product;
-  const { updateQuantity, user } = props;
+  const { user } = props;
 
   const [total, setTotal] = useState(0);
 
@@ -38,7 +38,6 @@ const CartProduct = (props) => {
 
   return (
     <div
-      onLoad={() => updateQuantity(quantityToOrder, name, "-")}
       className={styles.cartProduct}
     >
       <article>
@@ -57,7 +56,6 @@ const CartProduct = (props) => {
           } else {
             removeFromGuestCart(props.product);
           }
-          updateQuantity(quantityToOrder, name, "+");
         }}
       > Remove </button>
     </div>
