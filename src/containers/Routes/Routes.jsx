@@ -6,6 +6,7 @@ import DashBoard from "../DashBoard";
 import Favourites from "../Favourites";
 import Cart from "../Cart";
 import Settings from "../Settings";
+import PrivateRoute from "../PrivateRoute";
 
 const Routes = () => {
   return (
@@ -14,7 +15,9 @@ const Routes = () => {
       <DashBoard path="products" />
       <Favourites path="favourites" />
       <Cart path="cart" />
-      <Settings path="settings" />
+      <PrivateRoute path="/">
+        <Settings path="settings" />
+      </PrivateRoute>
     </Router>
   );
 };

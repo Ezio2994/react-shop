@@ -67,23 +67,6 @@ export const CartProvider = (props) => {
       .catch((err) => console.error(err));
   };
 
-  const bought = () => {
-    firestore
-      .collection("users")
-      .doc(user ? user.uid : userIP)
-      .collection("Cart")
-      .get()
-      .then((res) => {
-        res.forEach((element) => {
-          element.ref.delete();
-        });
-      })
-      .then(fetchFromUserCart)
-      //   .then(fetchFromUserFav)
-      .then(setTimeout(fetchFromUserCart, 10))
-      .catch((err) => console.error(err));
-  };
-
   useEffect(() => {
     if (user) {
       fetchFromUserCart();
@@ -98,7 +81,6 @@ export const CartProvider = (props) => {
         addToCart,
         updateQuantityToOrder,
         removeFromCart,
-        bought,
       }}
     >
       {props.children}

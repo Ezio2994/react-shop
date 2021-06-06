@@ -3,6 +3,7 @@ import styles from "./Cart.module.scss";
 import firebase, { firestore } from "../../firebase";
 import { UserContext } from "../../context/userContext";
 import { CartContext } from "../../context/cartContext";
+import { CrudContext } from "../../context/crudContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { navigate } from "@reach/router";
 import CartProduct from "../../components/CartProduct";
@@ -10,8 +11,10 @@ import CartProduct from "../../components/CartProduct";
 const Cart = () => {
   const userContext = useContext(UserContext);
   const cartContext = useContext(CartContext);
+  const crudContext = useContext(CrudContext);
   const { user } = userContext;
-  const { userCart, bought, fetchFromDataBase } = cartContext;
+  const { userCart, setUserCart } = cartContext;
+  const { bought } = crudContext;
 
   const cartTotal = useRef();
 
@@ -20,26 +23,20 @@ const Cart = () => {
     return total;
   });
 
-  let currentCart = [];
-
-  userCart.forEach((product) => {
-    currentCart.push({ [product.name]: product.quantityToOrder });
-  });
-
   const updateQuantity = () => {
-    currentCart.forEach((product) =>
-      updateDataBaseQuantity(...Object.keys(product), ...Object.values(product))
+    userCart.forEach((product) =>
+      updateDataBaseQuantity(product.name, product.quantityToOrder)
     );
   };
 
   const updateDataBaseQuantity = (name, quantity) => {
+    console.log(name, quantity);
     firestore
       .collection("dataBase")
       .doc(name)
       .update({
         availability: firebase.firestore.FieldValue.increment(-quantity),
       })
-      .then(fetchFromDataBase)
       .catch((err) => console.log(err));
   };
 
@@ -78,9 +75,14 @@ const Cart = () => {
           </div>
           <p>Taxes and shipping calculated at checkout</p>
           <button
+            disabled={userCart.length ? false : true}
             onClick={() => {
-              updateQuantity();
-              bought();
+              if (userCart.length) {
+                updateQuantity();
+                bought();
+                setUserCart([]);
+                alert("This is only a demonstration website");
+              }
             }}
           >
             Check Out

@@ -16,6 +16,7 @@ export const CrudProvider = (props) => {
       .collection("dataBase")
       .get()
       .then((querySnapshot) => {
+        console.log("db called");
         const currentData = querySnapshot.docs.map((doc) => doc.data());
         setDataBase(currentData);
       });
@@ -106,9 +107,7 @@ export const CrudProvider = (props) => {
           element.ref.delete();
         });
       })
-      // .then(fetchFromUserCart)
-      .then(fetchFromUserFav)
-      // .then(setTimeout(fetchFromUserCart, 10))
+      .then(fetchFromDataBase)
       .catch((err) => console.error(err));
   };
 
