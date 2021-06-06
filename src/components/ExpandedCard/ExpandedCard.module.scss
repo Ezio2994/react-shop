@@ -1,0 +1,90 @@
+.expandedCard {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fffcf7;
+  overflow: hidden;
+  z-index: 2;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 18px;
+
+  .closeIcon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  h2 {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+    text-align: center;
+
+    button {
+      background: lightgreen;
+      border: none;
+      border-radius: 50%;
+      height: 20px;
+      font-size: 18px;
+      width: 20px;
+    }
+  }
+
+  .counter {
+    width: 90%;
+    border-bottom: 2px solid #90887e;
+    display: flex;
+    justify-content: space-between;
+
+    p {
+      color: black;
+    }
+
+    button {
+      border: none;
+      background-color: transparent;
+      height: 30px;
+      color: #746b60;
+    }
+
+    input {
+      margin: 0 10px;
+      width: 50px;
+      font-size: 18px;
+      border: none;
+      background-color: transparent;
+      text-align: center;
+    }
+  }
+
+  img {
+    width: 70%;
+    height: auto;
+  }
+
+  .add {
+    height: 50px;
+    width: 90%;
+    background-color: transparent;
+    border: 2px solid black;
+    font-weight: bolder;
+    font-size: 16px;
+  }
+
+  span {
+    color: blue;
+    svg {
+      color: red;
+    }
+  }
+}

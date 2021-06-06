@@ -10,9 +10,10 @@ export const UserProvider = (props) => {
   const { fetchFromGuestCart } = crudContext;
 
   const [user, setUser] = useState(null);
-  const [userIP, setUsetIp] = useState("");
+  const [userIP, setUsetIp] = useState(null);
   const [isUserAdmin, setIsUserAdmin] = useState(false);
 
+  let i = 0;
   const getJSON = () => {
     const url =
       "https://ipfind.co/?ip=79.67.160.179&auth=45cd7774-c99d-4aa8-95f3-426d14eabc46";
@@ -20,7 +21,11 @@ export const UserProvider = (props) => {
     fetch(proxyUrl + url)
       .then((res) => res.json())
       .then((res) => {
-        setUsetIp(res.ip_address);
+        if (!i) {
+          setUsetIp(res.ip_address);
+          console.log("called for IP");
+          i++;
+        }
       })
       .then(fetchFromGuestCart)
       .catch((err) => {
@@ -65,6 +70,9 @@ export const UserProvider = (props) => {
         navigate("/products");
       } else {
         setUser(null);
+        if (!userIP) {
+          getJSON();
+        }
       }
     });
   };
@@ -72,10 +80,6 @@ export const UserProvider = (props) => {
   useEffect(() => {
     getUser();
   });
-
-  useEffect(() => {
-    getJSON();
-  }, [userIP]);
 
   useEffect(() => {
     if (user) {

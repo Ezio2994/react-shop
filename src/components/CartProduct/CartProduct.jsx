@@ -1,63 +1,79 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./CartProduct.module.scss";
 import { CrudContext } from "../../context/crudContext";
+import { CartContext } from "../../context/cartContext";
 
 const CartProduct = (props) => {
-  const crudContext = useContext(CrudContext)
-  const { dataBase, removeFromCart, removeFromGuestCart } = crudContext;
+  const crudContext = useContext(CrudContext);
+  const { dataBase } = crudContext;
+  const cartContext = useContext(CartContext);
+  const { removeFromCart, updateQuantityToOrder, userCart, setUserCart } =
+    cartContext;
   const { name, img, price, quantityToOrder } = props.product;
-  const { user } = props;
+  const { cartTotal } = props;
 
-  const [total, setTotal] = useState(0);
+  const dataBaseProduct = dataBase.find((data) => data.name === name);
 
-  const getTotal = () => {
-    setTotal(quantityToOrder * price);
+  // useEffect(() => {
+  //   if (quantityToOrder <= 0) {
+  //     removeFromCart(props.product);
+  //   }
+  // }, [userCart]);
+
+  const updateQuantity = (action) => {
+    updateQuantityToOrder(name, action);
+
+    if (quantityToOrder <= 1 && action === "minus") {
+      removeFromCart(props.product);
+    }
+
+    action === "plus"
+      ? (cartTotal.current.value = Number(cartTotal.current.value) + price)
+      : (cartTotal.current.value = Number(cartTotal.current.value) - price);
+
+    setUserCart(
+      userCart
+        .map((product) => {
+          if (product.name === name && action === "plus") {
+            return { ...product, quantityToOrder: product.quantityToOrder + 1 };
+          } else if (product.name === name && action === "minus") {
+            if (quantityToOrder <= 1) {
+              return null;
+            } else {
+              return {
+                ...product,
+                quantityToOrder: product.quantityToOrder - 1,
+              };
+            }
+          } else {
+            return product;
+          }
+        })
+        .filter((product) => product !== null)
+    );
   };
 
-  useEffect(() => {
-    getTotal();
-  }, []);
-
-  const available = dataBase.map((data) => {
-    if (data.name === name && data.availability >= quantityToOrder) {
-      return true;
-    } else {
-      return null;
-    }
-  });
-
-  const filteredCartQuantity = available.filter(
-    (quantity) => quantity !== null
-  );
-
-  if (!filteredCartQuantity.length && user) {
-    removeFromCart(props.product);
-  } else if (!filteredCartQuantity.length && !user) {
-    removeFromGuestCart(props.product);
-  }
-
   return (
-    <div
-      className={styles.cartProduct}
-    >
-      <article>
-        <img src={img} alt="" />
-        <p>{name}</p>
-      </article>
-      <article className={styles.money}>
-        <p>{quantityToOrder} *</p>
-        <p>£{price} =</p>
-        <p> £{total}</p>
-      </article>
-      <button
-        onClick={() => {
-          if (user) {
-            removeFromCart(props.product);
-          } else {
-            removeFromGuestCart(props.product);
-          }
-        }}
-      > Remove </button>
+    <div className={styles.cartProduct}>
+      <div className={styles.cartSides}>
+        <h2>{name}</h2>
+        <p>Availability: {dataBaseProduct.availability}</p>
+        <div className={styles.quantity}>
+          <button onClick={() => updateQuantity("minus")}>-</button>
+          <input
+            type="number"
+            name="quantity"
+            id="quantity"
+            readOnly
+            value={quantityToOrder}
+          />
+          <button onClick={() => updateQuantity("plus")}>+</button>
+        </div>
+      </div>
+      <div className={styles.cartSides}>
+        <img src={img} alt={name} />
+        <span>£{quantityToOrder * price}</span>
+      </div>
     </div>
   );
 };

@@ -1,148 +1,33 @@
-$primary-orange: rgba(252, 176, 69, 1);
-$primary-red: #EC1B23;
-$green: rgb(8, 241, 8);
-
 nav {
-  width: 100%;
-  height: 100px;
+  min-height: 10vh;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
+  justify-content: space-evenly;
+  font-size: 21px;
 
-  a{
-      text-decoration: none;
-  }
-
-  @keyframes sheen {
-      0% {
-        transform: skewY(-45deg) translateX(0);
-      }
-      100% {
-        transform: skewY(-45deg) translateX(12.5em);
-      }
-    }
-      
-  .mainButton {
-    padding: 0.50em 1.5em;
-    margin-right: 5px;
-    text-align: center;
-    text-decoration: none;
-    background-color: rgba(0,0,0, 0.3);
-    color: $primary-orange;
-    border: 2px solid $primary-orange;
-    font-size: 24px;
-    border-radius: 0.3em;
-    transition: all 0.2s ease-in-out;
+  a {
+    color: black;
     position: relative;
-    overflow: hidden;
-    cursor: pointer;
 
-    &:focus {
-      outline: none;
-    }
-
-    &:before {
-      content: "";
-      background-color: rgba(255,255,255,0.5);
-      height: 100%;
-      width: 3em;
-      display: block;
+    input {
       position: absolute;
-      top: 0;
-      left: -4.5em;
-      transform: skewX(-45deg) translateX(0);
-      transition: none;
-    }
-    
-    &:hover {
-      background-color: $primary-orange;
-      color: #fff;
-      border-bottom: 4px solid darken($primary-orange, 10%);
-      &:before {
-        transform: skewX(-45deg) translateX(13.5em);
-        transition: all 0.5s ease-in-out;
-      }
+      top: -5px;
+      left: -12px;
+      text-align: center;
+      height: 17px;
+      width: 17px;
+      padding: 1px;
+      background-color: black;
+      color: white;
+      border-radius: 10px;
+      border: none;
+      font-size: 12px;
     }
   }
 
   h1 {
-      color: $primary-red;
-      padding: 10px;
-      font-size: 38px;
-  }
-
-  .noShow {
-    display: none;
-  }
-
-  div {
-      margin-left: 5px;
-      display: flex;
-      justify-content: space-between;
-      
-    button {
-      color: $primary-red;
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
-      font-size: 18px;
-    }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-
-        &:hover .dropdownContent {
-            display: block;
-            color: $primary-red;
-            background-color: $primary-orange;
-        }
-
-    .dropdownContent {
-        display: none;
-        position: absolute;
-        width: 100px;
-        z-index: 1;
-        cursor: pointer;
-        text-align: center;
-
-        input {
-            cursor: pointer;
-        }
-
-        .dropdownContent p {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        & p:hover {
-            background-color:$primary-orange;
-        }
-      }
-    }
-  }
-
-  ul {
-      display: flex;
-
-    li {
-      list-style-type: none;
-    }      
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  nav {
-    flex-wrap: wrap;
-    height: 150px;
-    justify-content: space-around;
-    
-    h1 {
-      display: none;
-    }
+    font-family: "Sacramento", cursive;
+    font-size: 31px;
+    color: #ee4b2b;
   }
 }
