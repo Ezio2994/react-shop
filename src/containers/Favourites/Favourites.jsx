@@ -5,26 +5,15 @@ import { CrudContext } from "../../context/crudContext";
 
 import NavBar from "../../components/NavBar";
 
-const Favourites = (props) => {
+const Favourites = () => {
   const crudContext = useContext(CrudContext);
   const { userData, dataBase } = crudContext;
 
-  const whatsFav = userData.map((user) => user.name);
-
-  const favourited = dataBase.map((data) => {
-    if (whatsFav.includes(data.name)) {
-      return { ...data };
-    } else {
-      return null;
-    }
-  });
-
-  const filteredFav = favourited.filter((fav) => fav !== null);
-
+  const favourite = dataBase.filter((data) => userData.includes(data.name));
   return (
     <>
       <NavBar />
-      <ProductCardList dataBase={filteredFav} />
+      <ProductCardList dataBase={favourite} />
     </>
   );
 };

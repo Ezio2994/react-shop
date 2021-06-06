@@ -16,7 +16,6 @@ const NavBar = () => {
     ? allQuantity.reduce((a, b) => a + b)
     : 0;
 
-  console.log(cartQuantity);
   return (
     <nav>
       <h1>The Sicilian Shop</h1>

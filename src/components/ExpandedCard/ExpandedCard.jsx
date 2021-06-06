@@ -9,7 +9,7 @@ const ExpandedCard = (props) => {
   const { name, img, availability, price, description, category } =
     props.product;
   const crudContext = useContext(CrudContext);
-  const { addToFav, removeFromFav, checkIfFav } = crudContext;
+  const { addToFav, removeFromFav, userData, setUserData } = crudContext;
   const cartContext = useContext(CartContext);
   const { addToCart, userCart, setUserCart } = cartContext;
 
@@ -59,15 +59,17 @@ const ExpandedCard = (props) => {
   const ifUserShowFavOpt = user ? (
     <span
       onClick={() => {
-        if (!checkIfFav.includes(name)) {
-          addToFav(props.product);
+        if (!userData.includes(name)) {
+          addToFav(name);
+          setUserData([...userData, name]);
         } else {
-          removeFromFav(props.product);
+          removeFromFav(name);
+          setUserData(userData.filter((product) => product !== name));
         }
       }}
     >
       <FontAwesomeIcon
-        icon={checkIfFav.includes(name) ? ["fas", "heart"] : ["far", "heart"]}
+        icon={userData.includes(name) ? ["fas", "heart"] : ["far", "heart"]}
       />
     </span>
   ) : (

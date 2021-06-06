@@ -11,11 +11,6 @@ export const CrudProvider = (props) => {
   const [dataBase, setDataBase] = useState([]);
   const [userData, setUserData] = useState([]);
 
-  const userDataId = userData.map((data) => data.name);
-  const dataBaseId = dataBase.map((data) => data.name);
-
-  const checkIfFav = userDataId.filter((value) => dataBaseId.includes(value));
-
   const fetchFromDataBase = () => {
     firestore
       .collection("dataBase")
@@ -31,10 +26,12 @@ export const CrudProvider = (props) => {
       .collection("users")
       .doc(user ? user.uid : userIP)
       .collection("favourites")
+      .doc("list")
       .get()
-      .then((querySnapshot) => {
-        const currentData = querySnapshot.docs.map((doc) => doc.data());
-        setUserData(currentData);
+      .then((doc) => {
+        if (doc.exists) {
+          setUserData(doc.data().names);
+        }
       })
       .catch((err) => console.error(err));
   };
@@ -66,26 +63,36 @@ export const CrudProvider = (props) => {
       .catch((err) => console.log(err));
   };
 
-  const addToFav = (product) => {
-    firestore
-      .collection("users")
-      .doc(user.uid)
-      .collection("favourites")
-      .doc(product.name)
-      .set(product)
-      .then(fetchFromUserFav)
-      .catch((err) => console.log(err));
+  const addToFav = (name) => {
+    if (!userData.length) {
+      firestore
+        .collection("users")
+        .doc(user.uid)
+        .collection("favourites")
+        .doc("list")
+        .set({ names: [name] })
+        .catch((err) => console.log(err));
+    } else {
+      firestore
+        .collection("users")
+        .doc(user.uid)
+        .collection("favourites")
+        .doc("list")
+        .update({
+          names: firebase.firestore.FieldValue.arrayUnion(name),
+        });
+    }
   };
 
-  const removeFromFav = (product) => {
+  const removeFromFav = (name) => {
     firestore
       .collection("users")
       .doc(user.uid)
       .collection("favourites")
-      .doc(product.name)
-      .delete()
-      .then(fetchFromUserFav)
-      .catch((err) => console.error(err));
+      .doc("list")
+      .update({
+        names: firebase.firestore.FieldValue.arrayRemove(name),
+      });
   };
 
   const bought = () => {
@@ -120,7 +127,7 @@ export const CrudProvider = (props) => {
       value={{
         dataBase,
         userData,
-        checkIfFav,
+        setUserData,
         addToFav,
         removeFromFav,
         bought,
