@@ -22,35 +22,36 @@ const NavBar = () => {
 
   return (
     <nav>
-      <Link
-        style={user ? { display: "block" } : { display: "none" }}
-        to="/settings"
-      >
-        <FontAwesomeIcon icon="user-cog" />
-      </Link>
       <Link to="/">
         <h1>The Sicilian Shop</h1>
       </Link>
-      {location === "/products" ? (
-        <Link onClick={() => setLocation("/favourites")} to="/favourites">
-          <FontAwesomeIcon icon="heart" />
+      <div>
+        {location === "/products" ? (
+          <Link onClick={() => setLocation("/favourites")} to="/favourites">
+            <FontAwesomeIcon icon="heart" />
+          </Link>
+        ) : (
+          <Link onClick={() => setLocation("/products")} to="/products">
+            <FontAwesomeIcon icon="home" />
+          </Link>
+        )}
+        <Link to="/cart">
+          <input
+            type="number"
+            name="quantity"
+            id="quantity"
+            value={cartQuantity}
+            readOnly
+          />
+          <FontAwesomeIcon icon="shopping-basket" />
         </Link>
-      ) : (
-        <Link onClick={() => setLocation("/products")} to="/products">
-          <FontAwesomeIcon icon="home" />
+        <Link
+          style={user ? { display: "block" } : { display: "none" }}
+          to="/settings"
+        >
+          <FontAwesomeIcon icon="user-cog" />
         </Link>
-      )}
-
-      <Link to="/cart">
-        <input
-          type="number"
-          name="quantity"
-          id="quantity"
-          value={cartQuantity}
-          readOnly
-        />
-        <FontAwesomeIcon icon="shopping-basket" />
-      </Link>
+      </div>
     </nav>
   );
 };

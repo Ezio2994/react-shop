@@ -12,6 +12,7 @@ const DashBoard = () => {
   return (
     <>
       <NavBar />
+      <h2 className={styles.pageHeader}>Dishes</h2>
       <ProductCardList dataBase={dataBase} />
     </>
   );

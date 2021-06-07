@@ -2,9 +2,15 @@ nav {
   min-height: 10vh;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   font-size: 21px;
+  background-color: #faf3ec;
 
+  div {
+    display: flex;
+    width: 40%;
+    justify-content: space-evenly;
+  }
   a {
     color: black;
     position: relative;
@@ -29,5 +35,14 @@ nav {
     font-family: "Sacramento", cursive;
     font-size: 31px;
     color: #ee4b2b;
+    width: max-content;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  nav {
+    h1 {
+      font-size: 42px;
+    }
   }
 }

@@ -13,6 +13,7 @@ const Favourites = () => {
   return (
     <>
       <NavBar />
+      <h2 className={styles.pageHeader}>Favourites</h2>
       <ProductCardList dataBase={favourite} />
     </>
   );

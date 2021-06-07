@@ -110,41 +110,45 @@ const ExpandedCard = (props) => {
   };
 
   return (
-    <article
-      style={expanded === name ? { display: "flex" } : { display: "none" }}
-      className={styles.expandedCard}
+    <div
+      style={expanded === name ? { display: "block" } : { display: "none" }}
+      className={styles.cardBackGround}
     >
-      <FontAwesomeIcon
-        className={styles.closeIcon}
-        onClick={() => setExpanded(false)}
-        icon="times"
-      />
-      <img src={img} alt={name + " pic"} />
-      <h2>
-        {name}{" "}
-        <button
-          style={
-            category === "v" || category === "vg"
-              ? { display: "inline-block" }
-              : { display: "none" }
-          }
-        >
-          {category}
-        </button>
-      </h2>
-      <p>${price}</p>
-      {ifInStockShowCartButtons}
-      {availability - quantityOnUserCart > 0 ? (
-        <button className={styles.add} onClick={() => add()}>
-          Add To Cart
-        </button>
-      ) : null}
-      <p style={added ? { display: "block" } : { display: "none" }}>
-        Item added to the cart
-      </p>
-      <p>{description}</p>
-      {ifUserShowFavOpt}
-    </article>
+      <article className={styles.expandedCard}>
+        <FontAwesomeIcon
+          className={styles.closeIcon}
+          onClick={() => setExpanded(false)}
+          icon="times"
+        />
+        <img src={img} alt={name + " pic"} />
+        <div className={styles.detailSection}>
+          <h2>
+            {name}{" "}
+            <button
+              style={
+                category === "v" || category === "vg"
+                  ? { display: "inline-block" }
+                  : { display: "none" }
+              }
+            >
+              {category}
+            </button>
+          </h2>
+          <p></p>
+          {ifInStockShowCartButtons}
+          {availability - quantityOnUserCart > 0 ? (
+            <button className={styles.add} onClick={() => add()}>
+              Add To Cart
+            </button>
+          ) : null}
+          <p style={added ? { display: "block" } : { display: "none" }}>
+            Item added to the cart
+          </p>
+          <p>{description}</p>
+          {ifUserShowFavOpt}
+        </div>
+      </article>
+    </div>
   );
 };
 
