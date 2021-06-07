@@ -3,6 +3,9 @@ import styles from "./HomePage.module.scss";
 import { UserContext } from "../../context/userContext";
 import { Link, navigate } from "@reach/router";
 import logo from "../../assets/cannoli.jpg";
+import pasta from "../../assets/FI-23.jpg";
+import traditionalFood from "../../assets/best-sicilian-food.jpg";
+import traditionalFoodMobile from "../../assets/sicilian-sweets.jpg";
 import NavBar from "../NavBar";
 
 const HomePage = () => {
@@ -25,6 +28,30 @@ const HomePage = () => {
         </p>
 
         <button onClick={() => navigate("/products")}>Shop Now</button>
+      </section>
+      <section className={styles.homePageBottomSection}>
+        <h2>Handmade daily</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+          laborum, beatae sit adipisci aliquid quidem impedit veniam id enim
+          quas et exercitationem. Dicta et expedita rerum voluptatem velit
+          necessitatibus odit.
+        </p>
+        <img src={pasta} alt="pastahomemade" />
+
+        <h2>Traditional Sicilian Desserts</h2>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis
+          molestias atque vitae repudiandae nemo quidem nulla accusamus iste
+          autem? At aspernatur laboriosam quos quisquam accusantium
+          reprehenderit nisi sint minima molestiae?
+        </p>
+        <img
+          src={
+            window.innerWidth > 500 ? traditionalFood : traditionalFoodMobile
+          }
+          alt="traditional-desserts"
+        />
       </section>
     </>
   );

@@ -68,7 +68,7 @@ const ProductCardList = (props) => {
           onClick={() => setIndex(index - 1)}
           icon="chevron-left"
         />{" "}
-        <div className={styles.slideInLeft}>{coursesButton}</div>
+        <div>{coursesButton}</div>
         <FontAwesomeIcon
           style={
             index === 3 ? { display: "none" } : { display: "inline-block" }
