@@ -51,6 +51,7 @@ export const UserProvider = (props) => {
   };
 
   const signOut = () => {
+    console.log("signed out");
     firebase
       .auth()
       .signOut()

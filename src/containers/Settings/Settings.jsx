@@ -3,6 +3,7 @@ import styles from "./Settings.module.scss";
 import NavBar from "../../components/NavBar";
 import { UserContext } from "../../context/userContext";
 import { CrudContext } from "../../context/crudContext";
+import { CartContext } from "../../context/cartContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const emptyProduct = {
@@ -18,9 +19,11 @@ const emptyProduct = {
 const Settings = () => {
   const userContext = useContext(UserContext);
   const crudContext = useContext(CrudContext);
+  const cartContext = useContext(CartContext);
   const { user, isUserAdmin, signOut } = userContext;
   const { dataBase, addToDataBase, updateDataBase, deleteDataBaseProduct } =
     crudContext;
+  const { setUserCart } = cartContext;
   const [product, setProduct] = useState(emptyProduct);
   const [view, setView] = useState("");
 
@@ -158,7 +161,12 @@ const Settings = () => {
             <p>Admin right:</p> {isAdmin}
           </article>
 
-          <button>
+          <button
+            onClick={() => {
+              setUserCart([]);
+              signOut();
+            }}
+          >
             <FontAwesomeIcon icon="sign-out-alt" /> Sign out
           </button>
 

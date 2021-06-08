@@ -28,7 +28,6 @@ const Cart = (props) => {
   };
 
   const updateDataBaseQuantity = (name, quantity) => {
-    console.log(name, quantity);
     firestore
       .collection("dataBase")
       .doc(name)

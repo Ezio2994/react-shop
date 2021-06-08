@@ -12,7 +12,7 @@ const NavBar = (props) => {
   const cartContext = useContext(CartContext);
   const { userCart, cartTotal } = cartContext;
   const userContext = useContext(UserContext);
-  const { user } = userContext;
+  const { user, signIn } = userContext;
 
   const [location, setLocation] = useState(window.location.pathname);
 
@@ -27,15 +27,21 @@ const NavBar = (props) => {
         <h1>The Sicilian Shop</h1>
       </Link>
       <div>
-        <Link
-          onClick={() => setLocation("/settings")}
-          style={user ? { display: "block" } : { display: "none" }}
-          to="/settings"
-        >
-          <FontAwesomeIcon icon="user-cog" />
-        </Link>
+        {!user ? (
+          <button onClick={() => signIn()}>
+            <FontAwesomeIcon icon="sign-in-alt" />{" "}
+          </button>
+        ) : (
+          <Link onClick={() => setLocation("/settings")} to="/settings">
+            <FontAwesomeIcon icon="user-cog" />
+          </Link>
+        )}
         {location === "/products" ? (
-          <Link onClick={() => setLocation("/favourites")} to="/favourites">
+          <Link
+            style={user ? { display: "block" } : { display: "none" }}
+            onClick={() => setLocation("/favourites")}
+            to="/favourites"
+          >
             <FontAwesomeIcon icon="heart" />
           </Link>
         ) : (

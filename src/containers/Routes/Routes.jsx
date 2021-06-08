@@ -30,14 +30,14 @@ const Routes = () => {
         width={width}
         path="products"
       />
-      <Favourites
-        cartOn={cartOn}
-        setCartOn={setCartOn}
-        width={width}
-        path="favourites"
-      />
       <PrivateRoute path="/">
         <Settings path="settings" />
+        <Favourites
+          cartOn={cartOn}
+          setCartOn={setCartOn}
+          width={width}
+          path="favourites"
+        />
       </PrivateRoute>
     </Router>
   );
