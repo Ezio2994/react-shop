@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useContext } from "react";
 import styles from "./Cart.module.scss";
 import firebase, { firestore } from "../../firebase";
 import { UserContext } from "../../context/userContext";
 import { CartContext } from "../../context/cartContext";
 import { CrudContext } from "../../context/crudContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { navigate } from "@reach/router";
 import CartProduct from "../../components/CartProduct";
 
 const Cart = (props) => {
@@ -14,10 +13,8 @@ const Cart = (props) => {
   const cartContext = useContext(CartContext);
   const crudContext = useContext(CrudContext);
   const { user } = userContext;
-  const { userCart, setUserCart } = cartContext;
+  const { userCart, setUserCart, cartTotal } = cartContext;
   const { bought } = crudContext;
-
-  const cartTotal = useRef();
 
   const userTotalCart = userCart.map((cart) => {
     const total = cart.price * cart.quantityToOrder;

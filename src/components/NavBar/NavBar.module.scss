@@ -22,7 +22,7 @@ nav {
       background-color: transparent;
       font-size: 21px;
 
-      p {
+      span {
         position: absolute;
         top: -5px;
         left: -12px;
@@ -37,6 +37,22 @@ nav {
         font-size: 12px;
       }
     }
+
+    .cartAndTotal {
+      column-gap: 10px;
+    }
+
+    .cartTotal {
+      display: none;
+      width: 50px;
+      height: 25px;
+      border: 2px solid black;
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   h1 {
@@ -49,6 +65,17 @@ nav {
 
 @media only screen and (min-width: 700px) {
   nav {
+    justify-content: space-evenly;
+
+    div {
+      width: fit-content;
+      column-gap: 30px;
+
+      .cartTotal {
+        display: flex;
+      }
+    }
+
     h1 {
       font-size: 42px;
     }

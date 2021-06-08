@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from "react";
 import firebase, { firestore } from "../firebase";
 import { UserContext } from "../context/userContext";
 
@@ -7,8 +13,8 @@ export const CartContext = createContext({});
 export const CartProvider = (props) => {
   const userContext = useContext(UserContext);
   const { user, userIP } = userContext;
-
   const [userCart, setUserCart] = useState([]);
+  const cartTotal = useRef();
 
   const fetchFromUserCart = () => {
     firestore
@@ -81,6 +87,7 @@ export const CartProvider = (props) => {
         addToCart,
         updateQuantityToOrder,
         removeFromCart,
+        cartTotal,
       }}
     >
       {props.children}

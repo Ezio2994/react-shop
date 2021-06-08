@@ -5,12 +5,12 @@ import sicilyLogo from "../../assets/sicilyLogo.jpg";
 import { CartContext } from "../../context/cartContext";
 import { UserContext } from "../../context/userContext";
 
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 
 const NavBar = (props) => {
   const { setCartOn } = props;
   const cartContext = useContext(CartContext);
-  const { userCart } = cartContext;
+  const { userCart, cartTotal } = cartContext;
   const userContext = useContext(UserContext);
   const { user } = userContext;
 
@@ -27,6 +27,13 @@ const NavBar = (props) => {
         <h1>The Sicilian Shop</h1>
       </Link>
       <div>
+        <Link
+          onClick={() => setLocation("/settings")}
+          style={user ? { display: "block" } : { display: "none" }}
+          to="/settings"
+        >
+          <FontAwesomeIcon icon="user-cog" />
+        </Link>
         {location === "/products" ? (
           <Link onClick={() => setLocation("/favourites")} to="/favourites">
             <FontAwesomeIcon icon="heart" />
@@ -36,20 +43,26 @@ const NavBar = (props) => {
             <FontAwesomeIcon icon="home" />
           </Link>
         )}
-        <button
+        <div
           style={location === "/settings" ? { display: "none" } : null}
-          onClick={() => setCartOn(true)}
+          className={styles.cartAndTotal}
         >
-          <p>{cartQuantity}</p>
-          <FontAwesomeIcon icon="shopping-basket" />
-        </button>
-        <Link
-          onClick={() => setLocation("/settings")}
-          style={user ? { display: "block" } : { display: "none" }}
-          to="/settings"
-        >
-          <FontAwesomeIcon icon="user-cog" />
-        </Link>
+          <button
+            onClick={() => {
+              if (location === "/products") {
+                setCartOn(true);
+              } else {
+                navigate("/products");
+              }
+            }}
+          >
+            <span>{cartQuantity}</span>
+            <FontAwesomeIcon icon="shopping-basket" />
+          </button>
+          <p className={styles.cartTotal}>
+            £{cartTotal.current ? cartTotal.current.value : "0.00"}
+          </p>
+        </div>
       </div>
     </nav>
   );

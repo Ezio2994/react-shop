@@ -13,7 +13,7 @@ const DashBoard = (props) => {
 
   return (
     <>
-      <NavBar setCartOn={setCartOn} />
+      <NavBar setCartOn={setCartOn} width={width} />
       <h2 className={styles.pageHeader}>Dishes</h2>
       <main className={styles.dashBoard}>
         <ProductCardList

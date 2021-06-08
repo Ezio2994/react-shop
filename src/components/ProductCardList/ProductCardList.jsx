@@ -31,7 +31,7 @@ const ProductCardList = (props) => {
     productToDisplay = dataBase.filter((food) => food.course === "dessert");
   }
 
-  const isAllCourses = width < 762 ? courses.slice(index, index + 2) : courses;
+  const isAllCourses = width < 820 ? courses.slice(index, index + 2) : courses;
   const coursesButton = isAllCourses.map((course) => {
     return (
       <button
@@ -78,7 +78,7 @@ const ProductCardList = (props) => {
       <div className={styles.filters}>
         <FontAwesomeIcon
           style={
-            width < 762
+            width < 820
               ? index === 0
                 ? { display: "none" }
                 : { display: "inline-block" }
@@ -90,7 +90,7 @@ const ProductCardList = (props) => {
         <div>{coursesButton}</div>
         <FontAwesomeIcon
           style={
-            width < 762
+            width < 820
               ? index === 3
                 ? { display: "none" }
                 : { display: "inline-block" }
