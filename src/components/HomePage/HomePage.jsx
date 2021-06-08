@@ -27,7 +27,12 @@ const HomePage = () => {
           delivered to you home!
         </p>
 
-        <button onClick={() => navigate("/products")}>Shop Now</button>
+        <button
+          className={styles.homepageButton}
+          onClick={() => navigate("/products")}
+        >
+          Shop Now
+        </button>
       </section>
       <section className={styles.homePageBottomSection}>
         <h2>Handmade daily</h2>

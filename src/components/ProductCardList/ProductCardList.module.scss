@@ -1,7 +1,12 @@
+.productLargeScreen {
+  height: 85vh;
+  overflow: hidden;
+  opacity: 0.5;
+}
+
 .productsContainer {
   margin: 0 auto;
   width: 100%;
-  // min-height: 90vh;
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
@@ -13,12 +18,28 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  margin: 20px 0;
 
   button {
     border: none;
     background-color: transparent;
     font-size: 21px;
     margin: 0 20px;
+    padding-bottom: 10px;
+    color: #90887e;
+    transition: 0.6s ease-out;
+
+    &:hover {
+      color: black;
+    }
+  }
+}
+
+@media only screen and (min-width: 375px) {
+  .filters {
+    button {
+      font-size: 28px;
+    }
   }
 }
 

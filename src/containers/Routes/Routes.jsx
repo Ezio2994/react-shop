@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Router } from "@reach/router";
 
 import HomePage from "../../components/HomePage";
@@ -9,12 +9,33 @@ import Settings from "../Settings";
 import PrivateRoute from "../PrivateRoute";
 
 const Routes = () => {
+  const [cartOn, setCartOn] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <Router>
       <HomePage path="/" />
-      <DashBoard path="products" />
-      <Favourites path="favourites" />
-      <Cart path="cart" />
+      <DashBoard
+        cartOn={cartOn}
+        setCartOn={setCartOn}
+        width={width}
+        path="products"
+      />
+      <Favourites
+        cartOn={cartOn}
+        setCartOn={setCartOn}
+        width={width}
+        path="favourites"
+      />
       <PrivateRoute path="/">
         <Settings path="settings" />
       </PrivateRoute>

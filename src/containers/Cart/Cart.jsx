@@ -8,7 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { navigate } from "@reach/router";
 import CartProduct from "../../components/CartProduct";
 
-const Cart = () => {
+const Cart = (props) => {
+  const { cartOn, setCartOn, width } = props;
   const userContext = useContext(UserContext);
   const cartContext = useContext(CartContext);
   const crudContext = useContext(CrudContext);
@@ -43,21 +44,39 @@ const Cart = () => {
   const totalCartPrice = userTotalCart.reduce((a, b) => a + b, 0);
 
   const getCartProductJsx = (product) => (
-    <div className={styles.cartContainer} key={product.name}>
-      <CartProduct cartTotal={cartTotal} product={product} user={user} />
-    </div>
+    <CartProduct
+      key={product.name}
+      cartTotal={cartTotal}
+      product={product}
+      user={user}
+    />
   );
 
   return (
     <>
-      <section className={styles.cart}>
-        <div
-          onClick={() => navigate("/products")}
-          className={styles.cartTopSection}
-        >
+      <section
+        style={
+          width < 769
+            ? cartOn
+              ? { display: "block" }
+              : { display: "none" }
+            : null
+        }
+        className={
+          width > 769 && !cartOn
+            ? `${styles.cart} ${styles.largeScreen}`
+            : styles.cart
+        }
+      >
+        <div onClick={() => setCartOn(false)} className={styles.cartTopSection}>
           <FontAwesomeIcon icon="arrow-left" /> <p>Continue Shopping</p>
         </div>
-        {userCart.map(getCartProductJsx)}
+        <section
+          // style={expanded ? { height: "90vh", overflow: "hidden" } : null}
+          className={styles.productsContainer}
+        >
+          {userCart.map(getCartProductJsx)}
+        </section>
         <article className={styles.checkOut}>
           <div>
             <p>SubTotal:</p>{" "}

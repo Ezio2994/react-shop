@@ -1,6 +1,14 @@
 .pageHeader {
   text-align: center;
   font-family: "Sacramento", cursive;
-  font-size: 42px;
+  font-size: 32px;
   color: #ee4b2b;
+  background-color: #faf3ec;
+  height: 5vh;
+}
+
+@media only screen and (min-width: 762px) {
+  .pageHeader {
+    font-size: 42px;
+  }
 }

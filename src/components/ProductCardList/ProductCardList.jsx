@@ -4,20 +4,10 @@ import ProductCard from "../ProductCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ProductCardList = (props) => {
-  const { dataBase } = props;
+  const { dataBase, cartOn, setCartOn, width } = props;
   const [selectedCourse, setSelectedCourse] = useState("All Food");
   const [expanded, setExpanded] = useState(false);
   const [index, setIndex] = useState(0);
-  const [width, setWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const courses = [
     "All Food",
@@ -47,9 +37,16 @@ const ProductCardList = (props) => {
       <button
         key={course}
         style={
-          course === selectedCourse ? { textDecoration: "underline" } : null
+          course === selectedCourse
+            ? { borderBottom: "2px solid black", color: "black" }
+            : null
         }
-        onClick={() => setSelectedCourse(course)}
+        onClick={() => {
+          setSelectedCourse(course);
+          if (cartOn) {
+            setCartOn(false);
+          }
+        }}
       >
         {course}
       </button>
@@ -62,11 +59,22 @@ const ProductCardList = (props) => {
       product={product}
       setExpanded={setExpanded}
       expanded={expanded}
+      cartOn={cartOn}
+      setCartOn={setCartOn}
     />
   );
 
   return (
-    <>
+    <section
+      style={
+        width < 760
+          ? cartOn
+            ? { display: "none" }
+            : { display: "block" }
+          : null
+      }
+      className={width > 760 && cartOn ? styles.productLargeScreen : null}
+    >
       <div className={styles.filters}>
         <FontAwesomeIcon
           style={
@@ -92,13 +100,10 @@ const ProductCardList = (props) => {
           icon="chevron-right"
         />
       </div>
-      <section
-        // style={expanded ? { height: "90vh", overflow: "hidden" } : null}
-        className={styles.productsContainer}
-      >
+      <section className={styles.productsContainer}>
         {productToDisplay.map(getProductJsx)}
       </section>
-    </>
+    </section>
   );
 };
 

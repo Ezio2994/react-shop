@@ -33,7 +33,7 @@
 
     img {
       width: 70%;
-      max-width: 500px;
+      max-width: 400px;
       height: auto;
       margin-top: 50px;
     }
@@ -120,7 +120,11 @@
       flex-direction: row-reverse;
       box-shadow: 0px 1px 20px 0px #888888;
       top: 100px;
-      height: 500px;
+      height: 600px;
+
+      img {
+        margin: 0;
+      }
 
       .detailSection {
         width: 400px;

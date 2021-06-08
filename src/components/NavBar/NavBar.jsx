@@ -7,7 +7,8 @@ import { UserContext } from "../../context/userContext";
 
 import { Link } from "@reach/router";
 
-const NavBar = () => {
+const NavBar = (props) => {
+  const { setCartOn } = props;
   const cartContext = useContext(CartContext);
   const { userCart } = cartContext;
   const userContext = useContext(UserContext);
@@ -35,17 +36,15 @@ const NavBar = () => {
             <FontAwesomeIcon icon="home" />
           </Link>
         )}
-        <Link to="/cart">
-          <input
-            type="number"
-            name="quantity"
-            id="quantity"
-            value={cartQuantity}
-            readOnly
-          />
+        <button
+          style={location === "/settings" ? { display: "none" } : null}
+          onClick={() => setCartOn(true)}
+        >
+          <p>{cartQuantity}</p>
           <FontAwesomeIcon icon="shopping-basket" />
-        </Link>
+        </button>
         <Link
+          onClick={() => setLocation("/settings")}
           style={user ? { display: "block" } : { display: "none" }}
           to="/settings"
         >

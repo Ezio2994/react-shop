@@ -1,6 +1,16 @@
 .cart {
   width: 100%;
-  margin: 0 auto 180px;
+  height: 100vh;
+  position: absolute;
+  overflow: auto;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  background-color: #fffcf7;
+
+  .productsContainer {
+    margin: 0 auto 180px;
+  }
 
   .cartTopSection {
     height: 50px;
@@ -11,6 +21,7 @@
     border-bottom: 2px solid #90887e;
     font-weight: bold;
     color: black;
+    cursor: pointer;
 
     svg {
       margin: 0 20px;
@@ -21,6 +32,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
+    max-width: 450px;
     height: 150px;
     border-top: 2px solid #90887e;
     display: flex;
@@ -69,5 +81,17 @@
       font-weight: bold;
       font-size: 21px;
     }
+  }
+}
+
+.largeScreen {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .cart {
+    width: 450px;
+    box-shadow: 0px 1px 20px 0px #888888;
+    position: absolute;
   }
 }

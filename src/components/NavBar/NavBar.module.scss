@@ -5,29 +5,37 @@ nav {
   justify-content: space-between;
   font-size: 21px;
   background-color: #faf3ec;
+  z-index: 10;
 
   div {
     display: flex;
     width: 40%;
     justify-content: space-evenly;
-  }
-  a {
-    color: black;
-    position: relative;
 
-    input {
-      position: absolute;
-      top: -5px;
-      left: -12px;
-      text-align: center;
-      height: 17px;
-      width: 17px;
-      padding: 1px;
-      background-color: black;
-      color: white;
-      border-radius: 10px;
+    a,
+    button {
+      color: black;
+      position: relative;
       border: none;
-      font-size: 12px;
+      height: 25px;
+      width: 25px;
+      background-color: transparent;
+      font-size: 21px;
+
+      p {
+        position: absolute;
+        top: -5px;
+        left: -12px;
+        text-align: center;
+        height: 17px;
+        width: 17px;
+        padding: 2px;
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+        border: none;
+        font-size: 12px;
+      }
     }
   }
 

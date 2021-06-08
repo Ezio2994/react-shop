@@ -3,6 +3,7 @@ import styles from "./Settings.module.scss";
 import NavBar from "../../components/NavBar";
 import { UserContext } from "../../context/userContext";
 import { CrudContext } from "../../context/crudContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const emptyProduct = {
   name: "",
@@ -17,7 +18,7 @@ const emptyProduct = {
 const Settings = () => {
   const userContext = useContext(UserContext);
   const crudContext = useContext(CrudContext);
-  const { user, isUserAdmin } = userContext;
+  const { user, isUserAdmin, signOut } = userContext;
   const { dataBase, addToDataBase, updateDataBase, deleteDataBaseProduct } =
     crudContext;
   const [product, setProduct] = useState(emptyProduct);
@@ -111,11 +112,42 @@ const Settings = () => {
     const viewUpdateForm = view === "updateProduct" ? styles.viewOn : null;
     const viewDeleteForm = view === "deleteProduct" ? styles.viewOn : null;
 
+    const inputTextCreator = (name, label, value) => {
+      return (
+        <div>
+          <label htmlFor={name}>{label}</label>
+          <input
+            type="text"
+            name={name}
+            value={value}
+            onChange={handleChange}
+            required
+          />
+        </div>
+      );
+    };
+
+    const inputNumber = (name, label, value) => {
+      return (
+        <div>
+          <label htmlFor={name}>{label}</label>
+          <input
+            type="number"
+            name={name}
+            min="1"
+            value={value}
+            onChange={handleChange}
+            required
+          />
+        </div>
+      );
+    };
+
     return (
       <section className={styles.settings}>
         <NavBar />
+        <h2 className={styles.pageHeader}>Settings</h2>
         <div className={styles.menu}>
-          <h1>Settings</h1>
           <article>
             <p>Name:</p> {user.displayName}
           </article>
@@ -125,7 +157,14 @@ const Settings = () => {
           <article>
             <p>Admin right:</p> {isAdmin}
           </article>
-          <h2
+
+          <button>
+            <FontAwesomeIcon icon="sign-out-alt" /> Sign out
+          </button>
+
+          <h3>Admin Pannel</h3>
+
+          <button
             onClick={() => {
               if (view !== "newProduct") {
                 setView("newProduct");
@@ -136,80 +175,55 @@ const Settings = () => {
             }}
           >
             Add new product
-          </h2>
+          </button>
           <form onSubmit={handleSubmit} className={viewForm}>
-            <input
-              type="text"
-              name="name"
-              placeholder="What's the product name?"
-              value={name}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="description"
-              placeholder="A description of the product?"
-              value={description}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="img"
-              placeholder="URL of the image you want to use"
-              value={img}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="number"
-              name="price"
-              min="1"
-              placeholder="Price"
-              value={price}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="number"
-              name="availability"
-              min="1"
-              placeholder="How many pieces you have in stock"
-              value={availability}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="course">Choose the course:</label>
-            <select
-              id="course"
-              name="course"
-              value={course}
-              onChange={handleChange}
-              required
-            >
-              <option defaultValue=""></option>
-              <option value="starter">Starter</option>
-              <option value="main">Main</option>
-              <option value="dessert">dessert</option>
-            </select>
-            <label htmlFor="category">Choose the category:</label>
-            <select
-              id="category"
-              name="category"
-              value={category}
-              onChange={handleChange}
-              required
-            >
-              <option defaultValue=""></option>
-              <option value="v">Vegeterian</option>
-              <option value="vg">Vegan</option>
-              <option value="fish">Fish</option>
-              <option value="meat">Meat</option>
-            </select>
-            <input type="submit" value="Submit" onChange={handleChange} />
+            {inputTextCreator("name", "What's the product name?", name)}
+            {inputTextCreator(
+              "description",
+              "Describe yout product",
+              description
+            )}
+            {inputTextCreator("img", "URL of the image you want to use", img)}
+            {inputNumber("price", "Price", price)}
+            {inputNumber(
+              "availability",
+              "How many pieces you have in stock",
+              availability
+            )}
+            <div>
+              <label htmlFor="course">Choose the course:</label>
+              <select
+                id="course"
+                name="course"
+                value={course}
+                onChange={handleChange}
+                required
+              >
+                <option defaultValue=""></option>
+                <option value="starter">Starter</option>
+                <option value="main">Main</option>
+                <option value="dessert">dessert</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="category">Choose the category:</label>
+              <select
+                id="category"
+                name="category"
+                value={category}
+                onChange={handleChange}
+                required
+              >
+                <option defaultValue=""></option>
+                <option value="v">Vegeterian</option>
+                <option value="vg">Vegan</option>
+                <option value="fish">Fish</option>
+                <option value="meat">Meat</option>
+              </select>
+            </div>
+            <input type="submit" value="Save" onChange={handleChange} />
           </form>
-          <h2
+          <button
             onClick={() => {
               if (view !== "updateProduct") {
                 setView("updateProduct");
@@ -220,37 +234,18 @@ const Settings = () => {
             }}
           >
             Update product price or quantity
-          </h2>
+          </button>
           <form onSubmit={handleSubmitUpdate} className={viewUpdateForm}>
-            <input
-              type="text"
-              name="name"
-              placeholder="Product name to update?"
-              value={name}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="number"
-              name="price"
-              min="1"
-              placeholder="Price"
-              value={price}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="number"
-              name="availability"
-              min="1"
-              placeholder="How many pieces you have in stock"
-              value={availability}
-              onChange={handleChange}
-              required
-            />
+            {inputTextCreator("name", "What's the product name?", name)}
+            {inputNumber("price", "Price", price)}
+            {inputNumber(
+              "availability",
+              "How many pieces you have in stock",
+              availability
+            )}
             <input type="submit" value="Submit" />
           </form>
-          <h2
+          <button
             onClick={() => {
               if (view !== "deleteProduct") {
                 setView("deleteProduct");
@@ -261,16 +256,9 @@ const Settings = () => {
             }}
           >
             Delete product
-          </h2>
+          </button>
           <form onSubmit={handleSubmitDelete} className={viewDeleteForm}>
-            <input
-              type="text"
-              name="name"
-              placeholder="Product name to delete"
-              value={name}
-              onChange={handleChange}
-              required
-            />
+            {inputTextCreator("name", "What's the product name?", name)}
             <input type="submit" value="Submit" />
           </form>
         </div>

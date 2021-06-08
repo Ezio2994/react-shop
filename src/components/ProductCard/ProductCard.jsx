@@ -12,11 +12,19 @@ const ProductCard = (props) => {
 
   const { name, img, availability, price, description, category } =
     props.product;
-  const { setExpanded, expanded } = props;
+  const { setExpanded, expanded, cartOn, setCartOn } = props;
 
   return (
     <>
-      <article onClick={() => setExpanded(name)} className={styles.productCard}>
+      <article
+        onClick={() => {
+          setExpanded(name);
+          if (cartOn) {
+            setCartOn(false);
+          }
+        }}
+        className={styles.productCard}
+      >
         <div className={styles.productInfos}>
           <h2>
             {name}{" "}
