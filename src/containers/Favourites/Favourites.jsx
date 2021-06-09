@@ -7,14 +7,14 @@ import Cart from "../Cart";
 import NavBar from "../../components/NavBar";
 
 const Favourites = (props) => {
-  const { cartOn, setCartOn, width } = props;
+  const { cartOn, setCartOn, width, scrollDir } = props;
   const crudContext = useContext(CrudContext);
   const { userData, dataBase } = crudContext;
 
   const favourite = dataBase.filter((data) => userData.includes(data.name));
   return (
     <>
-      <NavBar setCartOn={setCartOn} />
+      <NavBar cartOn={cartOn} setCartOn={setCartOn} scrollDir={scrollDir} />
       <h2 className={styles.pageHeader}>Favourites</h2>
       <ProductCardList
         dataBase={favourite}

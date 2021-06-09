@@ -3,16 +3,21 @@ import styles from "./ProductCard.module.scss";
 import NotFound from "../NotFound";
 import "../../data/fa-library";
 import { UserContext } from "../../context/userContext";
+import { CartContext } from "../../context/cartContext";
 import ExpandedCard from "../ExpandedCard/ExpandedCard";
 
 const ProductCard = (props) => {
   const userContext = useContext(UserContext);
-
   const { signIn, user } = userContext;
+  const cartContext = useContext(CartContext);
+  const { userCart } = cartContext;
 
-  const { name, img, availability, price, description, category } =
-    props.product;
+  const { name, img, price, description, category } = props.product;
   const { setExpanded, expanded, cartOn, setCartOn } = props;
+
+  const thisProductOnCart = userCart.length
+    ? userCart.find((product) => product.name === name)
+    : null;
 
   return (
     <>
@@ -23,6 +28,7 @@ const ProductCard = (props) => {
             setCartOn(false);
           }
         }}
+        style={cartOn ? { opacity: "0.5", pointerEvents: "none" } : null}
         className={styles.productCard}
       >
         <div className={styles.productInfos}>
@@ -44,7 +50,12 @@ const ProductCard = (props) => {
           </p>
         </div>
         <div className={styles.imgContainer}>
-          <img src={img} alt="" />
+          <div>
+            <img src={img} alt="" />
+            {thisProductOnCart ? (
+              <span>{thisProductOnCart.quantityToOrder}</span>
+            ) : null}
+          </div>
           <p>View Details</p>
         </div>
       </article>

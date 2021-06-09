@@ -10,15 +10,8 @@ const CartProduct = (props) => {
   const { removeFromCart, updateQuantityToOrder, userCart, setUserCart } =
     cartContext;
   const { name, img, price, quantityToOrder } = props.product;
-  const { cartTotal } = props;
 
   const dataBaseProduct = dataBase.find((data) => data.name === name);
-
-  // useEffect(() => {
-  //   if (quantityToOrder <= 0) {
-  //     removeFromCart(props.product);
-  //   }
-  // }, [userCart]);
 
   const updateQuantity = (action) => {
     updateQuantityToOrder(name, action);
@@ -26,10 +19,6 @@ const CartProduct = (props) => {
     if (quantityToOrder <= 1 && action === "minus") {
       removeFromCart(props.product);
     }
-
-    action === "plus"
-      ? (cartTotal.current.value = Number(cartTotal.current.value) + price)
-      : (cartTotal.current.value = Number(cartTotal.current.value) - price);
 
     setUserCart(
       userCart

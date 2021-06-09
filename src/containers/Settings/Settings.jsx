@@ -111,10 +111,6 @@ const Settings = () => {
       setProduct(emptyProduct);
     };
 
-    const viewForm = view === "newProduct" ? styles.viewOn : null;
-    const viewUpdateForm = view === "updateProduct" ? styles.viewOn : null;
-    const viewDeleteForm = view === "deleteProduct" ? styles.viewOn : null;
-
     const inputTextCreator = (name, label, value) => {
       return (
         <div>
@@ -184,7 +180,12 @@ const Settings = () => {
           >
             Add new product
           </button>
-          <form onSubmit={handleSubmit} className={viewForm}>
+          <form
+            style={
+              view === "newProduct" ? { display: "flex" } : { display: "none" }
+            }
+            onSubmit={handleSubmit}
+          >
             {inputTextCreator("name", "What's the product name?", name)}
             {inputTextCreator(
               "description",
@@ -243,7 +244,14 @@ const Settings = () => {
           >
             Update product price or quantity
           </button>
-          <form onSubmit={handleSubmitUpdate} className={viewUpdateForm}>
+          <form
+            onSubmit={handleSubmitUpdate}
+            style={
+              view === "updateProduct"
+                ? { display: "flex" }
+                : { display: "none" }
+            }
+          >
             {inputTextCreator("name", "What's the product name?", name)}
             {inputNumber("price", "Price", price)}
             {inputNumber(
@@ -265,7 +273,14 @@ const Settings = () => {
           >
             Delete product
           </button>
-          <form onSubmit={handleSubmitDelete} className={viewDeleteForm}>
+          <form
+            onSubmit={handleSubmitDelete}
+            style={
+              view === "deleteProduct"
+                ? { display: "flex" }
+                : { display: "none" }
+            }
+          >
             {inputTextCreator("name", "What's the product name?", name)}
             <input type="submit" value="Submit" />
           </form>

@@ -6,6 +6,7 @@ import { CartContext } from "../../context/cartContext";
 import { CrudContext } from "../../context/crudContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CartProduct from "../../components/CartProduct";
+import disableScroll from "disable-scroll";
 
 const Cart = (props) => {
   const { cartOn, setCartOn, width } = props;
@@ -13,7 +14,7 @@ const Cart = (props) => {
   const cartContext = useContext(CartContext);
   const crudContext = useContext(CrudContext);
   const { user } = userContext;
-  const { userCart, setUserCart, cartTotal } = cartContext;
+  const { userCart, setUserCart } = cartContext;
   const { bought } = crudContext;
 
   const userTotalCart = userCart.map((cart) => {
@@ -40,38 +41,31 @@ const Cart = (props) => {
   const totalCartPrice = userTotalCart.reduce((a, b) => a + b, 0);
 
   const getCartProductJsx = (product) => (
-    <CartProduct
-      key={product.name}
-      cartTotal={cartTotal}
-      product={product}
-      user={user}
-    />
+    <CartProduct key={product.name} product={product} user={user} />
   );
-
+  console.log(cartOn);
   return (
     <>
       <section
-        style={
-          width < 769
-            ? cartOn
-              ? { display: "block" }
-              : { display: "none" }
-            : null
-        }
-        className={
-          width > 769 && !cartOn
-            ? `${styles.cart} ${styles.largeScreen}`
-            : styles.cart
-        }
+        style={cartOn ? { display: "block" } : { display: "none" }}
+        className={styles.cart}
+        onWheel={() => disableScroll.off()}
       >
-        <div onClick={() => setCartOn(false)} className={styles.cartTopSection}>
+        <div
+          onClick={() => {
+            setCartOn(false);
+            disableScroll.off();
+          }}
+          className={styles.cartTopSection}
+        >
           <FontAwesomeIcon icon="arrow-left" /> <p>Continue Shopping</p>
         </div>
-        <section
-          // style={expanded ? { height: "90vh", overflow: "hidden" } : null}
-          className={styles.productsContainer}
-        >
-          {userCart.map(getCartProductJsx)}
+        <section className={styles.productsContainer}>
+          {userCart.length ? (
+            userCart.map(getCartProductJsx)
+          ) : (
+            <h3>Your cart is currently empty.</h3>
+          )}
         </section>
         <article className={styles.checkOut}>
           <div>
@@ -79,7 +73,6 @@ const Cart = (props) => {
             <span>
               £
               <input
-                ref={cartTotal}
                 readOnly
                 type="number"
                 name="total"
