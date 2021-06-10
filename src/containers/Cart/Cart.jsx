@@ -9,7 +9,7 @@ import CartProduct from "../../components/CartProduct";
 import disableScroll from "disable-scroll";
 
 const Cart = (props) => {
-  const { cartOn, setCartOn, width } = props;
+  const { cartOn, setCartOn } = props;
   const userContext = useContext(UserContext);
   const cartContext = useContext(CartContext);
   const crudContext = useContext(CrudContext);

@@ -4,7 +4,6 @@ import { Router } from "@reach/router";
 import HomePage from "../../components/HomePage";
 import DashBoard from "../DashBoard";
 import Favourites from "../Favourites";
-import Cart from "../Cart";
 import Settings from "../Settings";
 import PrivateRoute from "../PrivateRoute";
 

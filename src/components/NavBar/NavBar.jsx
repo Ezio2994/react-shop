@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./NavBar.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import sicilyLogo from "../../assets/sicilyLogo.jpg";
 import { CartContext } from "../../context/cartContext";
 import { UserContext } from "../../context/userContext";
 import disableScroll from "disable-scroll";
@@ -31,7 +30,8 @@ const NavBar = (props) => {
   return (
     <nav
       className={
-        window.scrollY > window.innerHeight
+        window.scrollY > window.innerHeight &&
+        (location !== "/" || location !== "/settings")
           ? scrollDir === "up"
             ? styles.slideInTop
             : styles.slideOutTop
@@ -40,7 +40,7 @@ const NavBar = (props) => {
       style={cartOn ? { pointerEvents: "none" } : null}
     >
       <Link to="/">
-        <h1>The Sicilian Shop</h1>
+        <h1>Sicilian Shop</h1>
       </Link>
       <div>
         {!user ? (

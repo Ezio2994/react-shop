@@ -13,24 +13,24 @@ export const UserProvider = (props) => {
   const [userIP, setUsetIp] = useState(null);
   const [isUserAdmin, setIsUserAdmin] = useState(false);
 
-  let i = 0;
   const getJSON = () => {
-    const url =
-      "https://ipfind.co/?ip=79.67.160.179&auth=45cd7774-c99d-4aa8-95f3-426d14eabc46";
-    const proxyUrl = `https://agile-island-79839.herokuapp.com/`;
-    fetch(proxyUrl + url)
-      .then((res) => res.json())
-      .then((res) => {
-        if (!i) {
+    if (!window.localStorage.ipAddres) {
+      const url =
+        "https://ipfind.co/?ip=79.67.160.179&auth=45cd7774-c99d-4aa8-95f3-426d14eabc46";
+      const proxyUrl = `https://agile-island-79839.herokuapp.com/`;
+      fetch(proxyUrl + url)
+        .then((res) => res.json())
+        .then((res) => {
           setUsetIp(res.ip_address);
-          console.log("called for IP");
-          i++;
-        }
-      })
-      .then(fetchFromGuestCart)
-      .catch((err) => {
-        console.log(err);
-      });
+          window.localStorage.setItem("ipAddres", res.ip_address);
+        })
+        .then(fetchFromGuestCart)
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setUsetIp(window.localStorage.ipAddres);
+    }
   };
 
   const fetchFromUserAdmin = () => {
@@ -68,7 +68,6 @@ export const UserProvider = (props) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
-        navigate("/products");
       } else {
         setUser(null);
         if (!userIP) {
@@ -80,13 +79,13 @@ export const UserProvider = (props) => {
 
   useEffect(() => {
     getUser();
-  });
+  }); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (user) {
       fetchFromUserAdmin();
     }
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <UserContext.Provider

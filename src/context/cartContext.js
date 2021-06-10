@@ -9,68 +9,70 @@ export const CartProvider = (props) => {
   const { user, userIP } = userContext;
   const [userCart, setUserCart] = useState([]);
 
+  const userID = user ? user.uid : userIP;
+
   const fetchFromUserCart = () => {
-    firestore
-      .collection("users")
-      .doc(user ? user.uid : userIP)
-      .collection("Cart")
-      .get()
-      .then((querySnapshot) => {
-        const currentData = querySnapshot.docs.map((doc) => doc.data());
-        setUserCart(currentData);
-      })
-      .catch((err) => console.error(err));
+    if (userID) {
+      firestore
+        .collection("users")
+        .doc(userID)
+        .collection("Cart")
+        .get()
+        .then((querySnapshot) => {
+          const currentData = querySnapshot.docs.map((doc) => doc.data());
+          if (currentData.length) {
+            setUserCart(currentData);
+          }
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
-  //   const updateDataBase = (product) => {
-  //     firestore
-  //       .collection("dataBase")
-  //       .doc(product.name)
-  //       .update(product)
-  //       .then(fetchFromDataBase)
-  //       .catch((err) => console.log(err));
-  //   };
-
   const addToCart = (product, howMany) => {
-    firestore
-      .collection("users")
-      .doc(user ? user.uid : userIP)
-      .collection("Cart")
-      .doc(product.name)
-      .set({ ...product, quantityToOrder: howMany })
-      .catch((err) => console.log(err));
+    if (userID) {
+      firestore
+        .collection("users")
+        .doc(userID)
+        .collection("Cart")
+        .doc(product.name)
+        .set({ ...product, quantityToOrder: howMany })
+        .catch((err) => console.log(err));
+    }
   };
 
   const updateQuantityToOrder = (name, action) => {
-    console.log(name);
-    firestore
-      .collection("users")
-      .doc(user ? user.uid : userIP)
-      .collection("Cart")
-      .doc(name)
-      .update({
-        quantityToOrder: firebase.firestore.FieldValue.increment(
-          action === "plus" ? +1 : -1
-        ),
-      })
-      .catch((err) => console.log(err));
+    if (userID) {
+      firestore
+        .collection("users")
+        .doc(userID)
+        .collection("Cart")
+        .doc(name)
+        .update({
+          quantityToOrder: firebase.firestore.FieldValue.increment(
+            action === "plus" ? +1 : -1
+          ),
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   const removeFromCart = (product) => {
-    firestore
-      .collection("users")
-      .doc(user ? user.uid : userIP)
-      .collection("Cart")
-      .doc(product.name)
-      .delete()
-      .catch((err) => console.error(err));
+    if (userID) {
+      firestore
+        .collection("users")
+        .doc(userID)
+        .collection("Cart")
+        .doc(product.name)
+        .delete()
+        .catch((err) => console.error(err));
+    }
   };
 
   useEffect(() => {
-    if (user) {
+    if (userID) {
       fetchFromUserCart();
     }
-  }, [user]);
+  }, [userID]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <CartContext.Provider

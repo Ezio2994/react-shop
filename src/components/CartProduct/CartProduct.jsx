@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import styles from "./CartProduct.module.scss";
 import { CrudContext } from "../../context/crudContext";
 import { CartContext } from "../../context/cartContext";
@@ -50,9 +50,9 @@ const CartProduct = (props) => {
         <div className={styles.quantity}>
           <button onClick={() => updateQuantity("minus")}>-</button>
           <input
-            type="number"
-            name="quantity"
-            id="quantity"
+            type="text"
+            name={name + " quantity"}
+            id={name + " quantity"}
             readOnly
             value={quantityToOrder}
           />

@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import styles from "./HomePage.module.scss";
-import { UserContext } from "../../context/userContext";
-import { Link, navigate } from "@reach/router";
+import { navigate } from "@reach/router";
 import logo from "../../assets/cannoli.jpg";
 import pasta from "../../assets/FI-23.jpg";
 import traditionalFood from "../../assets/best-sicilian-food.jpg";
@@ -9,8 +8,6 @@ import traditionalFoodMobile from "../../assets/sicilian-sweets.jpg";
 import NavBar from "../NavBar";
 
 const HomePage = () => {
-  const userContext = useContext(UserContext);
-  const { signIn, user } = userContext;
   return (
     <>
       <section className={styles.homePage}>

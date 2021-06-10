@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./ProductCardList.module.scss";
 import ProductCard from "../ProductCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ProductCardList = (props) => {
-  const { dataBase, cartOn, setCartOn, width } = props;
+  const { dataBase, cartOn, setCartOn, width, isFav } = props;
   const [selectedCourse, setSelectedCourse] = useState("All Food");
   const [expanded, setExpanded] = useState(false);
   const [index, setIndex] = useState(0);
@@ -61,6 +61,7 @@ const ProductCardList = (props) => {
       expanded={expanded}
       cartOn={cartOn}
       setCartOn={setCartOn}
+      isFav={isFav}
     />
   );
 

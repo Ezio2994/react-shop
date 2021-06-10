@@ -3,11 +3,11 @@ import styles from "./ExpandedCard.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CrudContext } from "../../context/crudContext";
 import { CartContext } from "../../context/cartContext";
+import disableScroll from "disable-scroll";
 
 const ExpandedCard = (props) => {
-  const { setExpanded, expanded, user, signIn } = props;
-  const { name, img, availability, price, description, category } =
-    props.product;
+  const { setExpanded, expanded, user, signIn, isFav } = props;
+  const { name, img, availability, description, category } = props.product;
   const crudContext = useContext(CrudContext);
   const { addToFav, removeFromFav, userData, setUserData } = crudContext;
   const cartContext = useContext(CartContext);
@@ -65,6 +65,9 @@ const ExpandedCard = (props) => {
         } else {
           removeFromFav(name);
           setUserData(userData.filter((product) => product !== name));
+          if (isFav) {
+            disableScroll.off();
+          }
         }
       }}
     >
@@ -112,12 +115,15 @@ const ExpandedCard = (props) => {
   return (
     <div
       style={expanded === name ? { display: "block" } : { display: "none" }}
-      className={styles.cardBackGround}
+      className={`${styles.cardBackGround} ${styles.fadeIn} `}
     >
       <article className={styles.expandedCard}>
         <FontAwesomeIcon
           className={styles.closeIcon}
-          onClick={() => setExpanded(false)}
+          onClick={() => {
+            setExpanded(false);
+            disableScroll.off();
+          }}
           icon="times"
         />
         <img src={img} alt={name + " pic"} />

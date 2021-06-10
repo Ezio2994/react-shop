@@ -11,6 +11,8 @@ export const CrudProvider = (props) => {
   const [dataBase, setDataBase] = useState([]);
   const [userData, setUserData] = useState([]);
 
+  const userID = user ? user.uid : userIP;
+
   const fetchFromDataBase = () => {
     firestore
       .collection("dataBase")
@@ -25,7 +27,7 @@ export const CrudProvider = (props) => {
   const fetchFromUserFav = () => {
     firestore
       .collection("users")
-      .doc(user ? user.uid : userIP)
+      .doc(userID)
       .collection("favourites")
       .doc("list")
       .get()
@@ -97,29 +99,31 @@ export const CrudProvider = (props) => {
   };
 
   const bought = () => {
-    firestore
-      .collection("users")
-      .doc(user ? user.uid : userIP)
-      .collection("Cart")
-      .get()
-      .then((res) => {
-        res.forEach((element) => {
-          element.ref.delete();
-        });
-      })
-      .then(fetchFromDataBase)
-      .catch((err) => console.error(err));
+    if (userID) {
+      firestore
+        .collection("users")
+        .doc(userID)
+        .collection("Cart")
+        .get()
+        .then((res) => {
+          res.forEach((element) => {
+            element.ref.delete();
+          });
+        })
+        .then(fetchFromDataBase)
+        .catch((err) => console.error(err));
+    }
   };
 
   useEffect(() => {
     fetchFromDataBase();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (user) {
+    if (userID) {
       fetchFromUserFav();
     }
-  }, [user]);
+  }, [userID]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <CrudContext.Provider

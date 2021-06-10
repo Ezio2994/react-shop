@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import styles from "./ProductCard.module.scss";
-import NotFound from "../NotFound";
 import "../../data/fa-library";
 import { UserContext } from "../../context/userContext";
 import { CartContext } from "../../context/cartContext";
 import ExpandedCard from "../ExpandedCard/ExpandedCard";
+import disableScroll from "disable-scroll";
 
 const ProductCard = (props) => {
   const userContext = useContext(UserContext);
@@ -13,7 +13,7 @@ const ProductCard = (props) => {
   const { userCart } = cartContext;
 
   const { name, img, price, description, category } = props.product;
-  const { setExpanded, expanded, cartOn, setCartOn } = props;
+  const { setExpanded, expanded, cartOn, setCartOn, isFav } = props;
 
   const thisProductOnCart = userCart.length
     ? userCart.find((product) => product.name === name)
@@ -24,12 +24,13 @@ const ProductCard = (props) => {
       <article
         onClick={() => {
           setExpanded(name);
+          disableScroll.on();
           if (cartOn) {
             setCartOn(false);
           }
         }}
         style={cartOn ? { opacity: "0.5", pointerEvents: "none" } : null}
-        className={styles.productCard}
+        className={`${styles.productCard} ${styles.fadeIn}`}
       >
         <div className={styles.productInfos}>
           <h2>
@@ -65,6 +66,7 @@ const ProductCard = (props) => {
         product={props.product}
         user={user}
         signIn={signIn}
+        isFav={isFav}
       />
     </>
   );

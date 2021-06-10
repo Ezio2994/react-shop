@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import styles from "./Favourites.module.scss";
 import ProductCardList from "../../components/ProductCardList";
 import { CrudContext } from "../../context/crudContext";
@@ -21,6 +21,7 @@ const Favourites = (props) => {
         cartOn={cartOn}
         width={width}
         setCartOn={setCartOn}
+        isFav={true}
       />
       <Cart cartOn={cartOn} setCartOn={setCartOn} width={width} />
     </>
