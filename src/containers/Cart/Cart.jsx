@@ -58,7 +58,15 @@ const Cart = (props) => {
           }}
           className={styles.cartTopSection}
         >
-          <FontAwesomeIcon icon="arrow-left" /> <p>Continue Shopping</p>
+          <FontAwesomeIcon icon="arrow-left" />{" "}
+          <p
+            onClick={() => {
+              setCartOn(false);
+              disableScroll.off();
+            }}
+          >
+            Continue Shopping
+          </p>
         </div>
         <section className={styles.productsContainer}>
           {userCart.length ? (
