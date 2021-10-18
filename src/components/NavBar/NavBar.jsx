@@ -8,7 +8,7 @@ import disableScroll from "disable-scroll";
 import { Link, navigate } from "@reach/router";
 
 const NavBar = (props) => {
-  const { scrollDir, cartOn, setCartOn } = props;
+  const { cartOn, setCartOn } = props;
   const cartContext = useContext(CartContext);
   const { userCart } = cartContext;
   const userContext = useContext(UserContext);
@@ -28,17 +28,7 @@ const NavBar = (props) => {
   const totalCartPrice = userTotalCart.reduce((a, b) => a + b, 0);
 
   return (
-    <nav
-      className={
-        window.scrollY > window.innerHeight &&
-        (location !== "/" || location !== "/settings")
-          ? scrollDir === "up"
-            ? styles.slideInTop
-            : styles.slideOutTop
-          : null
-      }
-      style={cartOn ? { pointerEvents: "none" } : null}
-    >
+    <nav style={cartOn ? { pointerEvents: "none" } : null}>
       <Link to="/">
         <h1>Sicilian Shop</h1>
       </Link>

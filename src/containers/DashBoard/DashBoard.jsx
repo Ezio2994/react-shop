@@ -5,20 +5,22 @@ import { CrudContext } from "../../context/crudContext";
 import NavBar from "../../components/NavBar";
 import Cart from "../Cart";
 import disableScroll from "disable-scroll";
+import Headroom from "react-headroom";
 
 const DashBoard = (props) => {
-  const { cartOn, setCartOn, width, scrollDir } = props;
+  const { cartOn, setCartOn, width } = props;
   const crudContext = useContext(CrudContext);
   const { dataBase } = crudContext;
 
   return (
     <>
-      <NavBar
-        cartOn={cartOn}
-        setCartOn={setCartOn}
-        width={width}
-        scrollDir={scrollDir}
-      />
+      <Headroom
+        style={{
+          zIndex: 10,
+        }}
+      >
+        <NavBar cartOn={cartOn} setCartOn={setCartOn} width={width} />
+      </Headroom>
       <h2 className={styles.pageHeader}>Dishes</h2>
       <main
         onMouseOver={() => (cartOn ? disableScroll.on() : null)}

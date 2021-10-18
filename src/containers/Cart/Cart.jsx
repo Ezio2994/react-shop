@@ -43,7 +43,7 @@ const Cart = (props) => {
   const getCartProductJsx = (product) => (
     <CartProduct key={product.name} product={product} user={user} />
   );
-  console.log(cartOn);
+
   return (
     <>
       <section

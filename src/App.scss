@@ -8,6 +8,16 @@
 body {
   background-color: #fffcf7;
 
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
   p {
     color: #746b60;
   }
@@ -18,6 +28,7 @@ body {
 
   button {
     cursor: pointer;
+    color: black;
 
     &:focus {
       outline: none;

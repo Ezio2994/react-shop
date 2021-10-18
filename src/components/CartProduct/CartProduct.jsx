@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styles from "./CartProduct.module.scss";
 import { CrudContext } from "../../context/crudContext";
 import { CartContext } from "../../context/cartContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CartProduct = (props) => {
   const crudContext = useContext(CrudContext);
@@ -48,7 +49,10 @@ const CartProduct = (props) => {
         <h2>{name}</h2>
         <p>Availability: {dataBaseProduct.availability}</p>
         <div className={styles.quantity}>
-          <button onClick={() => updateQuantity("minus")}>-</button>
+          <button onClick={() => updateQuantity("minus")}>
+            {" "}
+            <FontAwesomeIcon icon={("fa", "minus")} />
+          </button>
           <input
             type="text"
             name={name + " quantity"}
@@ -56,7 +60,10 @@ const CartProduct = (props) => {
             readOnly
             value={quantityToOrder}
           />
-          <button onClick={() => updateQuantity("plus")}>+</button>
+          <button onClick={() => updateQuantity("plus")}>
+            {" "}
+            <FontAwesomeIcon icon={("fa", "plus")} />
+          </button>
         </div>
       </div>
       <div className={styles.cartSides}>

@@ -37,11 +37,13 @@
       max-width: 400px;
       height: auto;
       margin-top: 50px;
+      height: 30%;
     }
 
     .detailSection {
       height: -webkit-fill-available;
       width: 100%;
+      height: 70%;
       display: flex;
       flex-direction: column;
       align-items: center;
