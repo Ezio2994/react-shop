@@ -22,7 +22,7 @@ const Routes = () => {
 
   return (
     <Router>
-      <HomePage path="/" />
+      <HomePage cartOn={cartOn} setCartOn={setCartOn} path="/" />
       <DashBoard
         cartOn={cartOn}
         setCartOn={setCartOn}

@@ -7,16 +7,16 @@
   height: 5vh;
 }
 
+@media only screen and (min-width: 762px) {
+  .pageHeader {
+    font-size: 42px;
+  }
+}
+
 @media only screen and (min-width: 1200px) {
   .dashBoard {
     width: 85%;
     min-width: 1200px;
     margin: 0 auto;
-  }
-}
-
-@media only screen and (min-width: 762px) {
-  .pageHeader {
-    font-size: 42px;
   }
 }
