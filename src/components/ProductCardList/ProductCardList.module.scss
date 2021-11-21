@@ -8,6 +8,15 @@
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+
+  h3 {
+    margin: 50px;
+    text-align: center;
+    color: #746b60;
+    border: 2px solid #746b60;
+    padding: 20px;
+    border-radius: 10px;
+  }
 }
 
 .filters {

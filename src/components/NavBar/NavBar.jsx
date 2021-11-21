@@ -6,6 +6,7 @@ import { UserContext } from "../../context/userContext";
 import disableScroll from "disable-scroll";
 import Headroom from "react-headroom";
 import useSize from "../../hooks/useSize";
+import { Link, navigate } from "@reach/router";
 
 import logo from "../../assets/logo.svg";
 import NavBarMenu from "../NavBarMenu/NavBarMenu";
@@ -35,7 +36,18 @@ const NavBar = (props) => {
   const nav = (
     <nav style={cartOn ? { pointerEvents: "none" } : null}>
       <img src={logo} alt="" />
-      <div>
+      <div
+        className={styles.navBarCentre}
+        style={width < 768 ? { display: "none" } : null}
+      >
+        <Link to="/">About</Link>
+        <Link to="/products">Shop</Link>
+        <Link style={!user ? { display: "none" } : null} to="/favourites">
+          Favourites
+        </Link>
+        <Link to="contact">Contact Us</Link>
+      </div>
+      <div className={styles.navBarRightSide}>
         <div
           style={location === "/settings" ? { display: "none" } : null}
           className={styles.cartAndTotal}
@@ -51,6 +63,13 @@ const NavBar = (props) => {
           </button>
           <p className={styles.cartTotal}>£{totalCartPrice}</p>
         </div>
+        <button
+          style={width < 768 ? { display: "none" } : null}
+          onClick={() => (user ? navigate("/settings") : signIn())}
+        >
+          <FontAwesomeIcon icon="user-circle" />{" "}
+          {user ? "See Profile" : "SignIn"}
+        </button>
         <FontAwesomeIcon
           style={width >= 768 ? { display: "none" } : null}
           onClick={() => {

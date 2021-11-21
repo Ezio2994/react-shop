@@ -103,6 +103,7 @@ const ProductCardList = (props) => {
       </div>
       <section className={styles.productsContainer}>
         {productToDisplay.map(getProductJsx)}
+        {!productToDisplay.length && <h3>Nothing saved for this category.</h3>}
       </section>
     </section>
   );

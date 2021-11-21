@@ -16,14 +16,16 @@ const Favourites = (props) => {
     <>
       <NavBar cartOn={cartOn} setCartOn={setCartOn} />
       <h2 className={styles.pageHeader}>Saved Items</h2>
-      <ProductCardList
-        dataBase={favourite}
-        cartOn={cartOn}
-        width={width}
-        setCartOn={setCartOn}
-        isFav={true}
-      />
-      <Cart cartOn={cartOn} setCartOn={setCartOn} width={width} />
+      <main className={styles.favourites}>
+        <ProductCardList
+          dataBase={favourite}
+          cartOn={cartOn}
+          width={width}
+          setCartOn={setCartOn}
+          isFav={true}
+        />
+        <Cart cartOn={cartOn} setCartOn={setCartOn} width={width} />
+      </main>
     </>
   );
 };

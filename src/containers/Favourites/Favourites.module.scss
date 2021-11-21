@@ -3,8 +3,17 @@
   margin: 10px auto;
   font-size: 38px;
   color: #746b60;
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/78779/bacon.svg");
-  background-position: 0 1.06em;
-  background-size: 28px 9px;
-  background-repeat: repeat-x;
+}
+
+@media only screen and (min-width: 762px) {
+  .pageHeader {
+    font-size: 42px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .favourites {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 }
