@@ -14,7 +14,7 @@ const DashBoard = (props) => {
   return (
     <>
       <NavBar cartOn={cartOn} setCartOn={setCartOn} />
-      {/* <h2 className={styles.pageHeader}>Dishes</h2> */}
+      <h2 className={styles.pageHeader}>Dishes</h2>
       <main
         onMouseOver={() => (cartOn ? disableScroll.on() : null)}
         className={styles.dashBoard}

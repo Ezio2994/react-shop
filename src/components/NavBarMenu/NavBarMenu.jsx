@@ -51,6 +51,11 @@ const NavBarMenu = (props) => {
             </>
           )}
         </li>
+        {user && (
+          <Link onClick={() => disableScroll.off()} to="/settings">
+            <li>Settings</li>
+          </Link>
+        )}
         <Link onClick={() => disableScroll.off()} to="/">
           <li style={isSelected("About")}>About</li>
         </Link>

@@ -5,12 +5,10 @@ import { CartContext } from "../../context/cartContext";
 import { UserContext } from "../../context/userContext";
 import disableScroll from "disable-scroll";
 import Headroom from "react-headroom";
+import useSize from "../../hooks/useSize";
 
 import logo from "../../assets/logo.svg";
-
-import { Link, navigate } from "@reach/router";
 import NavBarMenu from "../NavBarMenu/NavBarMenu";
-import { useEffect } from "react/cjs/react.development";
 
 const NavBar = (props) => {
   const { cartOn, setCartOn, headroomOff } = props;
@@ -21,6 +19,7 @@ const NavBar = (props) => {
   const [menuOn, setMenuOn] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [location, setLocation] = useState(window.location.pathname);
+  const { width } = useSize();
 
   const allQuantity = userCart.map((product) => product.quantityToOrder);
   const cartQuantity = allQuantity.length
@@ -43,12 +42,8 @@ const NavBar = (props) => {
         >
           <button
             onClick={() => {
-              // if (location === "/products" || location === "/favourites") {
               setCartOn(true);
               disableScroll.on();
-              // } else {
-              //   navigate("/products");
-              // }
             }}
           >
             <span>{cartQuantity}</span>
@@ -57,6 +52,7 @@ const NavBar = (props) => {
           <p className={styles.cartTotal}>£{totalCartPrice}</p>
         </div>
         <FontAwesomeIcon
+          style={width >= 768 ? { display: "none" } : null}
           onClick={() => {
             setMenuOn(!menuOn);
             setClicked(true);

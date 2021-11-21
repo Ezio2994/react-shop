@@ -5,12 +5,14 @@ $primary-red: #ec1b23;
   min-height: 100vh;
 
   .pageHeader {
-    text-align: center;
-    font-family: "Sacramento", cursive;
-    font-size: 42px;
-    color: #ee4b2b;
-    background-color: #faf3ec;
-    width: 100%;
+    width: fit-content;
+    margin: 10px auto;
+    font-size: 38px;
+    color: #746b60;
+    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/78779/bacon.svg");
+    background-position: 0 1.06em;
+    background-size: 28px 9px;
+    background-repeat: repeat-x;
   }
 
   .menu {
