@@ -67,7 +67,7 @@ const NavBarMenu = (props) => {
             <li style={isSelected("Saved Items")}> Saved Items</li>
           </Link>
         )}
-        <Link to="contact">
+        <Link onClick={() => disableScroll.off()} to="/contact">
           <li style={isSelected("Contact Us")}>Contact Us</li>
         </Link>
         <li style={!user ? { display: "none" } : null} onClick={signOut}>

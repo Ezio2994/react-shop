@@ -38,14 +38,20 @@ const NavBar = (props) => {
       <img src={logo} alt="" />
       <div
         className={styles.navBarCentre}
-        style={width < 768 ? { display: "none" } : null}
+        style={
+          width > 768
+            ? user
+              ? null
+              : { display: "block" }
+            : { display: "none" }
+        }
       >
         <Link to="/">About</Link>
         <Link to="/products">Shop</Link>
         <Link style={!user ? { display: "none" } : null} to="/favourites">
           Favourites
         </Link>
-        <Link to="contact">Contact Us</Link>
+        <Link to="/contact">Contact Us</Link>
       </div>
       <div className={styles.navBarRightSide}>
         <div
