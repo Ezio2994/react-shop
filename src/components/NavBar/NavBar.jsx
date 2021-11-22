@@ -12,7 +12,7 @@ import logo from "../../assets/logo.svg";
 import NavBarMenu from "../NavBarMenu/NavBarMenu";
 
 const NavBar = (props) => {
-  const { cartOn, setCartOn, headroomOff } = props;
+  const { cartOn, setCartOn, headroomOff, hideCart } = props;
   const cartContext = useContext(CartContext);
   const { userCart } = cartContext;
   const userContext = useContext(UserContext);
@@ -49,7 +49,7 @@ const NavBar = (props) => {
       </div>
       <div className={styles.navBarRightSide}>
         <div
-          style={location === "/settings" ? { display: "none" } : null}
+          style={hideCart ? { display: "none" } : null}
           className={styles.cartAndTotal}
         >
           <button

@@ -144,7 +144,7 @@ const Settings = () => {
 
     return (
       <section className={styles.settings}>
-        <NavBar />
+        <NavBar hideCart />
         <h2 className={styles.pageHeader}>Settings</h2>
         <div className={styles.menu}>
           <article>

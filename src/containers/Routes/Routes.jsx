@@ -6,6 +6,7 @@ import DashBoard from "../DashBoard";
 import Favourites from "../Favourites";
 import Settings from "../Settings";
 import PrivateRoute from "../PrivateRoute";
+import ContactPage from "../ContactPage/ContactPage";
 
 const Routes = () => {
   const [cartOn, setCartOn] = useState(false);
@@ -38,6 +39,7 @@ const Routes = () => {
           path="favourites"
         />
       </PrivateRoute>
+      <ContactPage path="contact" />
     </Router>
   );
 };

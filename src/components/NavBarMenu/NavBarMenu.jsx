@@ -67,7 +67,9 @@ const NavBarMenu = (props) => {
             <li style={isSelected("Saved Items")}> Saved Items</li>
           </Link>
         )}
-        <li style={isSelected("Contact Us")}>Contact Us</li>
+        <Link to="contact">
+          <li style={isSelected("Contact Us")}>Contact Us</li>
+        </Link>
         <li style={!user ? { display: "none" } : null} onClick={signOut}>
           LogOut
         </li>
